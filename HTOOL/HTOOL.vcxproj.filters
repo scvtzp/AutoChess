@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="STD">
+      <UniqueIdentifier>{2cbe1fed-27a7-40c3-8d10-90e0797ca56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VIEW">
+      <UniqueIdentifier>{4afad1c8-9d7b-41bf-8549-bb847d70df86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Res">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="SCENE">
+      <UniqueIdentifier>{784a5a74-3cd4-4c10-8218-b0c7b8155897}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChildView.h">
+      <Filter>STD</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>STD</Filter>
+    </ClInclude>
+    <ClInclude Include="HTOOL.h">
+      <Filter>STD</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>STD</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>STD</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>STD</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>STD</Filter>
+    </ClInclude>
+    <ClInclude Include="HLeftView.h">
+      <Filter>VIEW</Filter>
+    </ClInclude>
+    <ClInclude Include="HRightView.h">
+      <Filter>VIEW</Filter>
+    </ClInclude>
+    <ClInclude Include="TOOLSCENE.h">
+      <Filter>SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>SCENE</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HTOOL.cpp">
+      <Filter>STD</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildView.cpp">
+      <Filter>STD</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>STD</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>STD</Filter>
+    </ClCompile>
+    <ClCompile Include="HLeftView.cpp">
+      <Filter>VIEW</Filter>
+    </ClCompile>
+    <ClCompile Include="HRightView.cpp">
+      <Filter>VIEW</Filter>
+    </ClCompile>
+    <ClCompile Include="TOOLSCENE.cpp">
+      <Filter>SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>SCENE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HTOOL.rc">
+      <Filter>Res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\HTOOL.rc2">
+      <Filter>Res</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\HTOOL.ico">
+      <Filter>Res</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,135 @@
+랜더링 파이프라인
+
+                                                     HVTXSHADER::ID3D11InputLayout* m_pLayOut HVBBUFFER   
+인풋 어셈블러1                                        인풋 어셈블러                   버텍스 버퍼, 
+버텍스 쉐이더 => 이걸 안하면 아무것도 안나올수 밖에 없다.
+인풋 어셈블러2
+헐 쉐이더
+테셀레이션
+도메인쉐이더
+지오메트리쉐이더
+레스터라이저 => 이 단계때문에 그렇다.
+픽셀 쉐이더 => 출구. 
+아웃풋 머저 
+
+struct VTX2DIMGIN
+{
+    float4 Pos : POSITION;
+    float4 Uv : TEXCOORD;
+    float4 Color : COLOR;
+};
+
+인풋 어셈블러 => 내가 어떤 형식의 점을 그리려고 하고 있다.
+
+버텍스 쉐이더 => 이걸 안하면 아무것도 안나올수 밖에 없다.
+레스터라이저 => 이 단계때문에 그렇다.
+픽셀 쉐이더 => 출구. 
+아웃풋 머저
+
+// 인풋 어셈블러
+// 버텍스 버퍼.
+	HPTR<HVBBUFFER> VB = HVBBUFFER::Find(L"2DCOLORRECT");
+	VB->Setting();
+
+// 인풋어셈블러에 해당하는 레이아웃도 여기서 처리.
+	HPTR<HVTXSHADER> VTXS = HVTXSHADER::Find(L"2DIMG.hlsl");
+	VTXS->Setting();
+
+// 인풋 어셈블러2
+// 인덱스 버퍼를 처리하는 방식 여기서 정한다.
+	HPTR<HIBBUFFER> IB = HIBBUFFER::Find(L"2DCOLORRECT");
+	IB->Setting();
+	HGAMEDEVICE::MAINOBJ()->Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+
+// 버텍스 쉐이더.
+		HPTR<HVTXSHADER> VTXS = HVTXSHADER::Find(L"2DIMG.hlsl");
+		VTXS->Setting();
+
+// 어떤 쉐이더건 우리가 넣어줄수 있는 데이터가
+// 쉐이더 3가지를 넣어줄수 있는데.
+상수버퍼
+텍스처
+샘플러
+
+	// HPTR<HTEXTURE> TEX = HTEXTURE::Find(L"WALKLEFT.png");
+	HPTR<HSAMPLER> SMP = HSAMPLER::Find(L"PMSMP");
+
+	m_SPRITE->Tex()->Setting(SHADERTYPE::SHADER_PS, 0);
+	// TEX->Setting(SHADERTYPE::SHADER_PS, 0);
+	SMP->Setting(SHADERTYPE::SHADER_PS, 0);
+
+	HPTR<HPIXSHADER> ITXS = HPIXSHADER::Find(L"2DIMG.hlsl");
+
+	HPTR<HCBUFFER> CBTRANS = HCBUFFER::Find(L"TRANSDATA");
+	HPTR<HCBUFFER> CBCOLOR = HCBUFFER::Find(L"COLOR");
+	HPTR<HCBUFFER> CUTDATA = HCBUFFER::Find(L"CUTDATA");
+
+	CutData = m_SPRITE->SpriteData(m_SpriteIndex);
+
+	CBTRANS->DataChange(m_TRANSDATA);
+	CBCOLOR->DataChange(m_Color);
+	CUTDATA->DataChange(CutData);
+
+	CBTRANS->Setting(SHADERTYPE::SHADER_VS, 0);
+	CUTDATA->Setting(SHADERTYPE::SHADER_VS, 1);
+	CBCOLOR->Setting(SHADERTYPE::SHADER_PS, 0);
+
+// 레스터 라이저
+// 앞면 윗면 멀티샘플링
+	HPTR<HRASTERIZER> RS = HRASTERIZER::Find(L"NONE");
+
+// 버텍스 쉐이더의 아웃풋에 있는 SV_Position에 뷰포트행렬이 곱해지는 것도
+// 뷰포트공간까지 갔다. 여기서이루어지고.
+
+
+// 픽셀쉐이더에서
+HPTR<HPIXSHADER> PIXS = HPIXSHADER::Find(L"2DIMG.hlsl");
+	PIXS->Setting();
+
+// 고정기능단계에 해당하는 녀석.
+	HPTR<HDEPTHSTENCIL> DS = HDEPTHSTENCIL::Find(L"DEFDEPTH");
+	HPTR<HBLEND> BLEND = HBLEND::Find(L"AlphaBlend");
+	DS->Setting();
+	BLEND->Setting();
+
+// ADD
+   (1, 0, 0, 1 * Src펙터) + (0, 0, 1, 1 * Dest펙터) = 1, 0, 0, 1
+   //Desc.RenderTarget[0].SrcBlend = D3D11_BLEND::D3D11_BLEND_ONE;
+   //Desc.RenderTarget[0].DestBlend = D3D11_BLEND::D3D11_BLEND_ONE;
+
+HGAMEDEVICE::MAINOBJ()->Context()->DrawIndexed(IB->Count(), 0, 0);
+
+// 기본적으로 점이 있죠?
+// 점에 행렬(공간)
+
+// 로컬공간
+// 모든건 자기가 기준이다.
+// 점위
+
+// -0.5f 0.5f 공간안에 있는것.
+
+	// 크기공간 (행렬)
+	// 자전공간 (행렬)
+	// 이동공간 (행렬)
+	// 공전공간
+	// 부모공간
+// 여기까지를 월드 공간
+
+// 카메라공간 (뷰행렬)
+
+// 투영공간 (x-1~1 y-1~1 z0~1)
+	// 투영식을 다 담을수가 없어서
+	// 1, 0, 0, 0
+	// 0, 1, 0, 0
+	// 0, 0, 1, 1
+	// 0, 0, 0, 0
+	// w에 들어간 z값을 나눠서 식을 완성하는 것도
+	// 레스터라이저가 해놓는다.
+
+// 뷰포트공간 (화면에 가게 된다.)
+    // float4 Pos : SV_Position;
+    // 이녀석만 뷰포트 공간까지 간다. 곱해주는건 자동으로 레스터라이저가 한다.
+
+// 실질적으로 WORLD VIEW PROJ VIEWPORT 까지 오는 놈은
+// float4 Pos : SV_Position; 담긴 애밖에 없다.

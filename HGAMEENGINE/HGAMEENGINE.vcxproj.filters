@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="HBLEND.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HBoneAnimationCom.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="HBoneAnimationComEx.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="HCAM.cpp">
+      <Filter>RENDERING</Filter>
+    </ClCompile>
+    <ClCompile Include="HCBUFFER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HCOL.cpp">
+      <Filter>OBJECT\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="HDEPTHSTENCIL.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HDEVICEBUFFER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HFBX.cpp">
+      <Filter>RES\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="HFbxEx.cpp">
+      <Filter>RES\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="HGAMEACTOR.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="HGAMECOM.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="HGAMEFONT.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HGAMERES.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HGAMESCENE.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="HGAMESCENE_RENDER.cpp">
+      <Filter>RENDERING</Filter>
+    </ClCompile>
+    <ClCompile Include="HGAMESPRITE.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HIBBUFFER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HLight.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="HMATERIAL.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HMESH.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HPIXSHADER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HRASTERIZER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HRENDERER.cpp">
+      <Filter>RENDERING</Filter>
+    </ClCompile>
+    <ClCompile Include="HRenderTarget.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HSAMPLER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HSHADER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HTEXTURE.cpp">
+      <Filter>RENDERING</Filter>
+    </ClCompile>
+    <ClCompile Include="HTRANS_COL.cpp">
+      <Filter>OBJECT\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="HVBBUFFER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HVTXSHADER.cpp">
+      <Filter>RES</Filter>
+    </ClCompile>
+    <ClCompile Include="HOutLineFilter.cpp">
+      <Filter>RENDERING\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="HHeightMap.cpp">
+      <Filter>OBJECT\MAP</Filter>
+    </ClCompile>
+    <ClCompile Include="HBloomFilter.cpp">
+      <Filter>RENDERING\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device_BLEND.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device_DEPTH.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device_MATERIAL.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device_MESH.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device_SAMPLER.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device_RASTERIZER.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Device_SHADER.cpp">
+      <Filter>DEVICE</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_3D_Debug.cpp">
+      <Filter>DEBUG</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Virtualprgoress.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Trans.cpp">
+      <Filter>OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_SpriteRenderer.cpp">
+      <Filter>RENDERING</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_StaticFBX.cpp">
+      <Filter>RES\Mesh</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HBLEND.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="DEFVTXHEADER.h">
+      <Filter>OBJECT\HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="HBoneAnimationCom.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="HBoneAnimationComEx.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="HCAM.h">
+      <Filter>RENDERING</Filter>
+    </ClInclude>
+    <ClInclude Include="HCBUFFER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HCOL.h">
+      <Filter>OBJECT\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="HDEPTHSTENCIL.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HDEVICEBUFFER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HFBX.h">
+      <Filter>RES\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="HFbxEx.h">
+      <Filter>RES\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="HGAMEACTOR.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="HGAMECOM.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="HGAMEFONT.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HGAMERES.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HGAMESCENE.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="HGAMESPRITE.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HIBBUFFER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HLight.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="HMATERIAL.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HMESH.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HPIXSHADER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HRASTERIZER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HRENDERER.h">
+      <Filter>RENDERING</Filter>
+    </ClInclude>
+    <ClInclude Include="HRenderingDataStructer.h">
+      <Filter>OBJECT\HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="HRenderTarget.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HSAMPLER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HSHADER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HTEXTURE.h">
+      <Filter>RENDERING</Filter>
+    </ClInclude>
+    <ClInclude Include="HVBBUFFER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HVTXSHADER.h">
+      <Filter>RES</Filter>
+    </ClInclude>
+    <ClInclude Include="HOutLineFilter.h">
+      <Filter>RENDERING\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="HHeightMap.h">
+      <Filter>OBJECT\MAP</Filter>
+    </ClInclude>
+    <ClInclude Include="HBloomFilter.h">
+      <Filter>RENDERING\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Device.h">
+      <Filter>DEVICE</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_3D_Debug.h">
+      <Filter>DEBUG</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Virtualprgoress.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Trans.h">
+      <Filter>OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_SpriteRenderer.h">
+      <Filter>RENDERING</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_StaticFBX.h">
+      <Filter>RES\Mesh</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="RENDERING">
+      <UniqueIdentifier>{9624f466-7f80-491f-92c8-43a9cbe85faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEBUG">
+      <UniqueIdentifier>{e555a237-b3a3-4118-a0bb-add9f4d1add6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RES">
+      <UniqueIdentifier>{dda3b882-4f9a-40bd-b493-4317ae6f9849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJECT">
+      <UniqueIdentifier>{0ca74a51-08e6-430e-8b98-540b8b9affed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RES\Mesh">
+      <UniqueIdentifier>{f41de7a3-9ad2-4071-9609-c01ece600fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEVICE">
+      <UniqueIdentifier>{ccd6c05d-89f0-4572-af71-923d118f24cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJECT\Collision">
+      <UniqueIdentifier>{5e182691-af01-485e-9bd0-2d223bccabfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RENDERING\Filter">
+      <UniqueIdentifier>{a44783b8-fed8-4acb-a79e-66221f505b2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJECT\MAP">
+      <UniqueIdentifier>{8c8df16e-abfb-41a0-9c42-a7c52605cdb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJECT\HEADER">
+      <UniqueIdentifier>{2f36c992-4cdd-4d46-8f76-d6117a51e270}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

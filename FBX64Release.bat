@@ -1,0 +1,1 @@
+XCOPY ..\THIRDPARTY\FBX\x64\Release\*.* ..\BIN\Release\x64\ /d

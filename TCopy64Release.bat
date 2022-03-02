@@ -1,0 +1,1 @@
+COPY ..\THIRDPARTY\FMOD\x64\*.* ..\BIN\Release\x64\

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="HGAMEDEBUG.cpp" />
+    <ClCompile Include="HGAMEFILE.cpp" />
+    <ClCompile Include="HGAMEINPUT.cpp" />
+    <ClCompile Include="HGAMEIO.cpp" />
+    <ClCompile Include="HGAMEMATH.cpp" />
+    <ClCompile Include="HGAMEMOVIE.cpp" />
+    <ClCompile Include="HGAMENAME.cpp" />
+    <ClCompile Include="HGAMESOUND.cpp" />
+    <ClCompile Include="HGAMESTRING.cpp" />
+    <ClCompile Include="HGAMETIME.cpp" />
+    <ClCompile Include="HGAMEVIDEO.cpp" />
+    <ClCompile Include="HGAMEWINDOW.cpp" />
+    <ClCompile Include="HPTR.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HGAMEDEBUG.h" />
+    <ClInclude Include="HGAMEFILE.h" />
+    <ClInclude Include="HGAMEINPUT.h" />
+    <ClInclude Include="HGAMEIO.h" />
+    <ClInclude Include="HGAMEMATH.h" />
+    <ClInclude Include="HGAMEMOVIE.h" />
+    <ClInclude Include="HGAMENAME.h" />
+    <ClInclude Include="HGAMESOUND.h" />
+    <ClInclude Include="HGAMESTRING.h" />
+    <ClInclude Include="HGAMETIME.h" />
+    <ClInclude Include="HGAMEVIDEO.h" />
+    <ClInclude Include="HGAMEWINDOW.h" />
+    <ClInclude Include="HLISTOBJMGR.h" />
+    <ClInclude Include="HMGR.h" />
+    <ClInclude Include="HPTR.h" />
+  </ItemGroup>
+</Project>

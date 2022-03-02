@@ -1,0 +1,10 @@
+atk1 33
+atk2 41
+idle 41
+dizzy 61
+death 68
+born 46
+Run 17
+skile 41
+Jump 49
+victory 93

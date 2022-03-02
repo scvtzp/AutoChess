@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="FreeCam.cpp" />
+    <ClCompile Include="Game_2DAnimation.cpp" />
+    <ClCompile Include="Warewolf.cpp">
+      <Filter>Chess_Unit\Unit\WareWolf</Filter>
+    </ClCompile>
+    <ClCompile Include="SwordMaster.cpp">
+      <Filter>Chess_Unit\Unit\SwordMaster</Filter>
+    </ClCompile>
+    <ClCompile Include="WindRanger.cpp">
+      <Filter>Chess_Unit\Unit\WindRanger</Filter>
+    </ClCompile>
+    <ClCompile Include="Chess_Base.cpp">
+      <Filter>Chess</Filter>
+    </ClCompile>
+    <ClCompile Include="Chess_player.cpp">
+      <Filter>Chess</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniWolf.cpp">
+      <Filter>Chess_Unit\Unit\WareWolf</Filter>
+    </ClCompile>
+    <ClCompile Include="SoulBreaker.cpp">
+      <Filter>Chess_Unit\Unit\SoulBreaker</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FreeCam.h" />
+    <ClInclude Include="GAMELOGIC.h" />
+    <ClInclude Include="Game_2DAnimation.h" />
+    <ClInclude Include="Warewolf.h">
+      <Filter>Chess_Unit\Unit\WareWolf</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordMaster.h">
+      <Filter>Chess_Unit\Unit\SwordMaster</Filter>
+    </ClInclude>
+    <ClInclude Include="WindRanger.h">
+      <Filter>Chess_Unit\Unit\WindRanger</Filter>
+    </ClInclude>
+    <ClInclude Include="Chess_Base.h">
+      <Filter>Chess</Filter>
+    </ClInclude>
+    <ClInclude Include="Chess_player.h">
+      <Filter>Chess</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniWolf.h">
+      <Filter>Chess_Unit\Unit\WareWolf</Filter>
+    </ClInclude>
+    <ClInclude Include="SoulBreaker.h">
+      <Filter>Chess_Unit\Unit\SoulBreaker</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Chess_Unit">
+      <UniqueIdentifier>{127126b4-99b6-4ff1-88c6-8e06b8fe35c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chess_Unit\Unit">
+      <UniqueIdentifier>{8583c53f-41f4-4d4e-a458-3f4839f47df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chess_Unit\Unit\SwordMaster">
+      <UniqueIdentifier>{d0409e92-05e0-4a3f-81dd-4c0d2c896acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chess_Unit\Unit\WindRanger">
+      <UniqueIdentifier>{8c3089ea-3928-4812-8d22-02ff6e997693}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chess">
+      <UniqueIdentifier>{8b4ca59e-8ecd-4f00-b891-28d33d78f47d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chess_Unit\Unit\WareWolf">
+      <UniqueIdentifier>{5dc0a860-ce5c-4c84-9da9-618efdc1d757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chess_Unit\Unit\SoulBreaker">
+      <UniqueIdentifier>{85dfeba3-f852-4fcf-932a-7b766d681e22}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MainFile.cpp" />
+    <ClCompile Include="HCLIENTSCENECOM.cpp">
+      <Filter>SCENE\HCLIENTSCENECOM</Filter>
+    </ClCompile>
+    <ClCompile Include="CL_TestScene.cpp">
+      <Filter>SCENE\CL_TestScene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="SCENE">
+      <UniqueIdentifier>{0c63451f-90b1-44c3-aa8d-d8a0a134e0a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE\HCLIENTSCENECOM">
+      <UniqueIdentifier>{a9733463-e40c-44c6-b847-e15f7470fb13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SCENE\CL_TestScene">
+      <UniqueIdentifier>{70c45c9c-bb2e-4233-9ffa-6bb3b0f16852}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HCLIENTSCENECOM.h">
+      <Filter>SCENE\HCLIENTSCENECOM</Filter>
+    </ClInclude>
+    <ClInclude Include="CL_TestScene.h">
+      <Filter>SCENE\CL_TestScene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

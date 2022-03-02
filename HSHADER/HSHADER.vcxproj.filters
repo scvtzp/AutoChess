@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="Foward.hlsl">
+      <Filter>BaseRender</Filter>
+    </FxCompile>
+    <FxCompile Include="Defferd.hlsl">
+      <Filter>BaseRender</Filter>
+    </FxCompile>
+    <FxCompile Include="2DIMG.hlsl">
+      <Filter>BaseRender</Filter>
+    </FxCompile>
+    <FxCompile Include="OutLineDraw.hlsl">
+      <Filter>Poseffect</Filter>
+    </FxCompile>
+    <FxCompile Include="OutLine.hlsl">
+      <Filter>Poseffect</Filter>
+    </FxCompile>
+    <FxCompile Include="GRID.hlsl">
+      <Filter>FowardSub</Filter>
+    </FxCompile>
+    <FxCompile Include="3DDEFFERDLIGHTING.hlsl">
+      <Filter>DefferdRenderPath</Filter>
+    </FxCompile>
+    <FxCompile Include="3DDEFFERDMERGE.hlsl">
+      <Filter>DefferdRenderPath</Filter>
+    </FxCompile>
+    <FxCompile Include="SKY.hlsl">
+      <Filter>FowardSub</Filter>
+    </FxCompile>
+    <FxCompile Include="3DMapDefferdTexture.hlsl">
+      <Filter>DefferdSub</Filter>
+    </FxCompile>
+    <FxCompile Include="TargetDebugTexture.hlsl">
+      <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="TargetDebugBack.hlsl">
+      <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="TargetMerge.hlsl">
+      <Filter>Target</Filter>
+    </FxCompile>
+    <FxCompile Include="DebugMesh.hlsl">
+      <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="Shadow.hlsl">
+      <Filter>Shadow</Filter>
+    </FxCompile>
+    <FxCompile Include="Emission.hlsl">
+      <Filter>Poseffect</Filter>
+    </FxCompile>
+    <FxCompile Include="EmissionBloomCheck.hlsl">
+      <Filter>Poseffect</Filter>
+    </FxCompile>
+    <FxCompile Include="EmissionBloom.hlsl">
+      <Filter>Poseffect</Filter>
+    </FxCompile>
+    <FxCompile Include="3DANIDefferdTexture.hlsl">
+      <Filter>BaseRender</Filter>
+    </FxCompile>
+    <FxCompile Include="3DStaticDefferdColor.hlsl">
+      <Filter>BaseRender</Filter>
+    </FxCompile>
+    <FxCompile Include="3DStaticDefferdTexture.hlsl">
+      <Filter>BaseRender</Filter>
+    </FxCompile>
+    <FxCompile Include="3DStaticTex.hlsl">
+      <Filter>BaseRender</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="쉐이더 설명.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LightBase.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="CalBase.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="AniBase.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="RenderBase.hlsli">
+      <Filter>Header</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{9cc43a11-45a8-4edd-968f-c16655a83ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BaseRender">
+      <UniqueIdentifier>{6c7c1871-0c28-44d0-be6e-fa1edc17b639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Poseffect">
+      <UniqueIdentifier>{f4c982e6-0689-49e1-b7fe-0d0d612bd553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DefferdRenderPath">
+      <UniqueIdentifier>{5deb4deb-0ca0-4b1d-8433-939b01b23ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shadow">
+      <UniqueIdentifier>{4b3e73d4-40ef-4805-a1be-44a4063ea670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FowardSub">
+      <UniqueIdentifier>{e6b772d6-754e-4e68-80a3-009673d9a1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DefferdSub">
+      <UniqueIdentifier>{358afe09-88ef-4eb4-91f0-4914ea53ec33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Target">
+      <UniqueIdentifier>{d0cec8bd-0c89-4af8-bba3-f6448cf0bd40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{5e24f268-266d-41c0-ad4b-bf06f986e075}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
