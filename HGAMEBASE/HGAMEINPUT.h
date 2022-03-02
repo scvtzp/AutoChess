@@ -80,6 +80,7 @@ public:
 		NewKey->m_KeyVec.reserve(sizeof...(Arg));
 		PushKey(NewKey, Arg...);
 	}
+	static void Init();
 
 private:
 	template<typename T, typename ... REST>

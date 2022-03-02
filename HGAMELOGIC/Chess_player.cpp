@@ -24,9 +24,6 @@ Chess_player::~Chess_player() {}
 
 void Chess_player::Init()
 {
-	if (false == HGAMEINPUT::IsKey(L"Mouse_L"))
-		HGAMEINPUT::CreateKey(L"Mouse_L", VK_LBUTTON);
-
 	//마우스
 	{
 		Game_Ptr<Game_Actor> Act = SCENE()->CreateActor();
@@ -384,6 +381,18 @@ void Chess_player::Board_Col(Game_Collision* _This, Game_Collision* _Other)
 	}
 }
 
+template<typename T>
+void Chess_player::Spawn_Unit(int _X, int _Y, int _Team)
+{
+	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+	Game_Ptr<T> TestEnemy = PTR1->CreateCom<T>();
+	TestEnemy->Info.Position_X = _X;
+	TestEnemy->Info.Position_Y = _Y;
+	TestEnemy->Info.Real_X = TestEnemy->Info.Position_X;
+	TestEnemy->Info.Real_Y = TestEnemy->Info.Position_Y;
+	Piece_Board.emplace_back(TestEnemy);
+}
+
 template<class T>
 void Chess_player::Supply_Input(int Level)
 {
@@ -557,6 +566,8 @@ void Chess_player::Set_Banch_Sequence()
 	}
 }
 
+
+
 void Chess_player::Test()
 {
 	//테스트용 아군 유닛 생성//////////////////////////////////////
@@ -587,15 +598,7 @@ void Chess_player::Test()
 	//	TestEnemy->Info.Real_Y = 4;
 	//	Piece_Board.emplace_back(TestEnemy);
 	//}
-	{
-		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
-		Game_Ptr<SoulBreaker> TestEnemy = PTR1->CreateCom<SoulBreaker>();
-		TestEnemy->Info.Position_X = 1;
-		TestEnemy->Info.Position_Y = 6;
-		TestEnemy->Info.Real_X = 1;
-		TestEnemy->Info.Real_Y = 6;
-		Piece_Board.emplace_back(TestEnemy);
-	}
+	Spawn_Unit<SoulBreaker>(1, 6);
 
 	//테스트용 적 유닛 생성///////////////////////////////////////////////
 	/*{

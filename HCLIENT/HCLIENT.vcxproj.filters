@@ -8,6 +8,9 @@
     <ClCompile Include="CL_TestScene.cpp">
       <Filter>SCENE\CL_TestScene</Filter>
     </ClCompile>
+    <ClCompile Include="CL_LobbyScene.cpp">
+      <Filter>SCENE\CL_LobbyScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SCENE">
@@ -19,6 +22,9 @@
     <Filter Include="SCENE\CL_TestScene">
       <UniqueIdentifier>{70c45c9c-bb2e-4233-9ffa-6bb3b0f16852}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SCENE\CL_LobbyScene">
+      <UniqueIdentifier>{94cdeec6-4ddc-4d44-be5b-47619fb274da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HCLIENTSCENECOM.h">
@@ -26,6 +32,12 @@
     </ClInclude>
     <ClInclude Include="CL_TestScene.h">
       <Filter>SCENE\CL_TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CL_LobbyScene.h">
+      <Filter>SCENE\CL_LobbyScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CL_Scene.h">
+      <Filter>SCENE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

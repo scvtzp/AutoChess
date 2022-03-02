@@ -5,9 +5,12 @@
 #include <HGAMESCENE.h>
 #include <HGAMEACTOR.h>
 
+#include <HGAMEINPUT.h>
+
 //Scene
 #include "HCLIENTSCENECOM.h"
 #include "CL_TestScene.h"
+#include "CL_LobbyScene.h"
 
 #pragma comment(lib, "HGAMEBASE.lib")
 #pragma comment(lib, "HGAMEENGINE.lib")
@@ -15,9 +18,11 @@
 
 int __stdcall Start()
 {
+	HGAMEINPUT::Init();
+
 	//HGAMESCENE::Create<HCLIENTSCENECOM>(L"TEST");
-	HGAMESCENE::Create<CL_TestScene>(L"TEST");
-	HGAMESCENE::ChangeScene(L"TEST");
+	HGAMESCENE::Create<CL_LobbyScene>(L"LobbyScene");
+	HGAMESCENE::ChangeScene(L"LobbyScene");
 
 	return 1;
 }

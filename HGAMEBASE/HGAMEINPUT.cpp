@@ -121,3 +121,25 @@ Game_Vector HGAMEINPUT::MouseDir3DNormal()
 {
 	return MouseDir.NORMAL3DTORETURN();
 }
+
+ void HGAMEINPUT::Init()
+{
+	HGAMEINPUT::CreateKey(L"1", '1');
+	HGAMEINPUT::CreateKey(L"2", '2');
+
+	HGAMEINPUT::CreateKey(L"L", 'J');
+	HGAMEINPUT::CreateKey(L"R", 'L');
+	HGAMEINPUT::CreateKey(L"F", 'I');
+	HGAMEINPUT::CreateKey(L"B", 'K');
+	HGAMEINPUT::CreateKey(L"Test", 'T');
+
+	HGAMEINPUT::CreateKey(L"A", 'A');
+	HGAMEINPUT::CreateKey(L"D", 'D');
+	HGAMEINPUT::CreateKey(L"CAMUP", 'Q');
+	HGAMEINPUT::CreateKey(L"CAMDOWN", 'E');
+	HGAMEINPUT::CreateKey(L"W", 'W');
+	HGAMEINPUT::CreateKey(L"S", 'S');
+
+	HGAMEINPUT::CreateKey(L"Mouse_L", VK_LBUTTON);
+	HGAMEINPUT::CreateKey(L"Mouse_R", VK_RBUTTON);
+}

@@ -1,17 +1,18 @@
-#include "CL_TestScene.h"
+#include "CL_LobbyScene.h"
 #include "CL_Scene.h"
 
-CL_TestScene::CL_TestScene() {}
+CL_LobbyScene::CL_LobbyScene() {}
 
-CL_TestScene::~CL_TestScene() {}
+CL_LobbyScene::~CL_LobbyScene() {}
 
-void CL_TestScene::SceneChangeStart()
+void CL_LobbyScene::SceneChangeStart()
 {
 	SCENE()->ColLink((int)Col_Name::Shop_Unit, (int)Col_Name::Mouse);
 	SCENE()->ColLink((int)Col_Name::Button, (int)Col_Name::Mouse);
 	SCENE()->ColLink((int)Col_Name::Board, (int)Col_Name::Mouse);
 
 	Load_Functions();
+
 
 	//기본 캠 생성
 	{
@@ -94,7 +95,7 @@ void CL_TestScene::SceneChangeStart()
 
 		Game_Ptr<Game_Renderer> NewRender = MeshActor->CreateCom<Game_Renderer>((int)RenderType::Default);
 		NewPtr = MeshActor->CreateCom<Game_BoneAnimationCom_Ex>();
-		std::vector<Game_Ptr<HRENDERPLAYER>> Ptr = NewPtr->MainFbx(L"Player_Born.fbx", L"Defferd", (int)RenderType::Default);
+		std::vector<Game_Ptr<HRENDERPLAYER>> Ptr = NewPtr->MainFbx(L"Player_Born.fbx", L"3DANIDefferdTexture", (int)RenderType::Default);
 
 		Game_Ptr<Game_Fbx_Ex> Monster = Game_Fbx_Ex::Find(L"Player_Born.fbx");
 		DRAWSET* DrawSet1 = Monster->GetDrawSet(0);
@@ -113,16 +114,16 @@ void CL_TestScene::SceneChangeStart()
 
 }
 
-void CL_TestScene::SceneChangeEnd()
+void CL_LobbyScene::SceneChangeEnd()
 {
 	SCENE()->ActorClear();
 }
 
-void CL_TestScene::Init()
+void CL_LobbyScene::Init()
 {
 }
 
-void CL_TestScene::Update()
+void CL_LobbyScene::Update()
 {
 	Mouse_Col->TRANS()->LPOS({ HGAMEINPUT::MousePos3D().x / 100.f, HGAMEINPUT::MousePos3D().y / 100.f, HGAMEINPUT::MousePos3D().z / 100.f });
 	Mouse_ColRenderer->TRANS()->LPOS({ HGAMEINPUT::MousePos3D().x / 100, HGAMEINPUT::MousePos3D().y / 100, HGAMEINPUT::MousePos3D().z / 100 });
@@ -138,7 +139,7 @@ void CL_TestScene::Update()
 	}
 }
 
-void CL_TestScene::Load_Functions()
+void CL_LobbyScene::Load_Functions()
 {
 	//FBX로드
 	{

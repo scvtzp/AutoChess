@@ -57,6 +57,10 @@ private:
 	//UI
 	Game_Ptr<Game_Renderer> Ui_Black;
 
+	//Test
+	template<typename T>
+	void Spawn_Unit(int _X, int _Y, int _Team = 0); //_Team 0이라면 아군 1이라면 적군
+
 
 public:
 	static ChessPiece_Supply ChessPiece_Supply; //공급처

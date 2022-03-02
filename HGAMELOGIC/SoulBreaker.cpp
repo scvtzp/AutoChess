@@ -68,13 +68,12 @@ void SoulBreaker::Init()
 
 		Game_Ptr<Game_Renderer> NewRender = MeshActor->CreateCom<Game_Renderer>((int)RenderType::Default);
 		NewPtr = MeshActor->CreateCom<Game_BoneAnimationCom_Ex>();
-		//std::vector<Game_Ptr<HRENDERPLAYER>> Ptr = NewPtr->MainFbx(L"006S1_Idle.fbx", L"3DANIDefferdTexture", (int)RenderType::Default);
-		std::vector<Game_Ptr<HRENDERPLAYER>> Ptr = NewPtr->MainFbx(L"006S1_Idle.fbx", L"Defferd", (int)RenderType::Default);
+		std::vector<Game_Ptr<HRENDERPLAYER>> Ptr = NewPtr->MainFbx(L"006S1_Idle.fbx", L"3DANIDefferdTexture", (int)RenderType::Default);
 
-		//Game_Ptr<Game_Fbx_Ex> Monster = Game_Fbx_Ex::Find(L"006S1_Idle.fbx");
-		//DRAWSET* DrawSet1 = Monster->GetDrawSet(0);
-		//Ptr[0]->TEXTURE(L"Tex", DrawSet1->m_MatialData[0][0].DifTexture);
-		//Ptr[0]->SAMPLER(L"Smp", L"LWSMP");
+		Game_Ptr<Game_Fbx_Ex> Monster = Game_Fbx_Ex::Find(L"006S1_Idle.fbx");
+		DRAWSET* DrawSet1 = Monster->GetDrawSet(0);
+		Ptr[0]->TEXTURE(L"Tex", DrawSet1->m_MatialData[0][0].DifTexture);
+		Ptr[0]->SAMPLER(L"Smp", L"LWSMP");
 
 		NewPtr->CreateAni(L"006S1_Atk1.fbx", L"Attack01", 0, 33, 0);
 		//NewPtr->CreateAni(L"006S1_Atk2.fbx", L"Attack02", 0, 41, 0);

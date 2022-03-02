@@ -160,11 +160,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CL_LobbyScene.cpp" />
     <ClCompile Include="CL_TestScene.cpp" />
     <ClCompile Include="HCLIENTSCENECOM.cpp" />
     <ClCompile Include="MainFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CL_LobbyScene.h" />
+    <ClInclude Include="CL_Scene.h" />
     <ClInclude Include="CL_TestScene.h" />
     <ClInclude Include="HCLIENTSCENECOM.h" />
   </ItemGroup>

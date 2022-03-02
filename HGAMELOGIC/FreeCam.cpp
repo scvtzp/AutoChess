@@ -32,17 +32,17 @@ void FreeCam::Init(float _Speed)
 
 	m_Cam = ACTOR()->FindComType<HCAM>();
 
-	if (false == HGAMEINPUT::IsKey(L"A"))
-	{
-		HGAMEINPUT::CreateKey(L"A", 'A');
-		HGAMEINPUT::CreateKey(L"D", 'D');
-		HGAMEINPUT::CreateKey(L"CAMUP", 'Q');
-		HGAMEINPUT::CreateKey(L"CAMDOWN", 'E');
-		HGAMEINPUT::CreateKey(L"W", 'W');
-		HGAMEINPUT::CreateKey(L"S", 'S');
+	//if (false == HGAMEINPUT::IsKey(L"A"))
+	//{
+	//	HGAMEINPUT::CreateKey(L"A", 'A');
+	//	HGAMEINPUT::CreateKey(L"D", 'D');
+	//	HGAMEINPUT::CreateKey(L"CAMUP", 'Q');
+	//	HGAMEINPUT::CreateKey(L"CAMDOWN", 'E');
+	//	HGAMEINPUT::CreateKey(L"W", 'W');
+	//	HGAMEINPUT::CreateKey(L"S", 'S');
 
-		HGAMEINPUT::CreateKey(L"Mouse_R", VK_RBUTTON);
-	}
+	//	HGAMEINPUT::CreateKey(L"Mouse_R", VK_RBUTTON);
+	//}
 }
 
 void FreeCam::Update() 
