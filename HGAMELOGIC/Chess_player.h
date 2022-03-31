@@ -16,6 +16,13 @@ struct ChessPiece_Supply
 	//1코-45 2코-30 3코-25 4코-15 5코-10
 };
 
+enum class Chess_Team
+{
+	Ally,
+	Enemy,
+	End
+};
+
 class Chess_player : public HACTORCOM
 {
 public:
@@ -59,7 +66,7 @@ private:
 
 	//Test
 	template<typename T>
-	void Spawn_Unit(int _X, int _Y, int _Team = 0); //_Team 0이라면 아군 1이라면 적군
+	void Spawn_Unit(int _X, int _Y, Chess_Team _Team = Chess_Team::Ally); //_Team 0이라면 아군 1이라면 적군
 
 
 public:

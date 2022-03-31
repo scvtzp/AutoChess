@@ -31,6 +31,9 @@ public:
 	void Init() override;
 	void Update() override;
 
+	void Skill_Init() override;
+	void Skill_Update() override;
+
 	//Ãâ·Â¿ë
 	//Game_Ptr<Game_Actor> MeshActor;
 	//Game_Ptr<Game_BoneAnimationCom_Ex> NewPtr;

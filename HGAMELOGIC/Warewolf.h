@@ -14,6 +14,9 @@ public:
 
 	bool Form_change = false; //true = 변신
 
+	void Skill_Init() override;
+	void Skill_Update() override;
+
 	//출력용
 	//Game_Ptr<Game_Actor> MeshActor;
 	//Game_Ptr<Game_BoneAnimationCom_Ex> NewPtr;

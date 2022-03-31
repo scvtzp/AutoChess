@@ -6,6 +6,7 @@
 #include <HGAMEACTOR.h>
 
 #include <HGAMEINPUT.h>
+#include <HGAMESOUND.h>
 
 //Scene
 #include "HCLIENTSCENECOM.h"
@@ -18,11 +19,33 @@
 
 int __stdcall Start()
 {
+	srand((unsigned int)time(NULL));
+
+	//콘솔 오픈
+	HGAMEDEBUG::OpenConsole();
+
+	//key 로드
 	HGAMEINPUT::Init();
+	
+	//sound 로드
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"SOUND");
+
+		auto FileList = Dic.DirAllFile();
+		for (auto& _File : FileList)
+		{
+			HGAMESOUND::Load(_File);
+		}
+	}
 
 	//HGAMESCENE::Create<HCLIENTSCENECOM>(L"TEST");
 	HGAMESCENE::Create<CL_LobbyScene>(L"LobbyScene");
-	HGAMESCENE::ChangeScene(L"LobbyScene");
+	HGAMESCENE::Create<CL_TestScene>(L"TestScene");
+	HGAMESCENE::ChangeScene(L"TestScene");
 
 	return 1;
 }

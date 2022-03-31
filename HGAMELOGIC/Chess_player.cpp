@@ -176,7 +176,7 @@ void Chess_player::Set_ShopTex(Game_String Name, int ShopNum, float X, float Y, 
 
 		Store_Renderer[ShopNum] = Store_Actor[ShopNum]->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Ui);
 		Store_Ani[ShopNum] = Store_Actor[ShopNum]->CreateCom<Game_2DAnimation>(Store_Renderer[ShopNum]);
-		Store_Ani[ShopNum]->CreateAni(L"Shop", Name, 0, 39, 0.1f, true);
+		Store_Ani[ShopNum]->CreateAni(L"Shop", Name, 0, End, 0.1f, true);
 		Store_Ani[ShopNum]->ChangeAni(L"Shop");
 		Store_Renderer[ShopNum]->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
 		Store_Renderer[ShopNum]->TEXTURE(L"Tex", Name);
@@ -382,7 +382,7 @@ void Chess_player::Board_Col(Game_Collision* _This, Game_Collision* _Other)
 }
 
 template<typename T>
-void Chess_player::Spawn_Unit(int _X, int _Y, int _Team)
+void Chess_player::Spawn_Unit(int _X, int _Y, Chess_Team _Team)
 {
 	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 	Game_Ptr<T> TestEnemy = PTR1->CreateCom<T>();
@@ -390,7 +390,11 @@ void Chess_player::Spawn_Unit(int _X, int _Y, int _Team)
 	TestEnemy->Info.Position_Y = _Y;
 	TestEnemy->Info.Real_X = TestEnemy->Info.Position_X;
 	TestEnemy->Info.Real_Y = TestEnemy->Info.Position_Y;
-	Piece_Board.emplace_back(TestEnemy);
+	if(_Team == Chess_Team::Ally)
+		Piece_Board.emplace_back(TestEnemy);
+	else
+		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
+
 }
 
 template<class T>
@@ -566,8 +570,6 @@ void Chess_player::Set_Banch_Sequence()
 	}
 }
 
-
-
 void Chess_player::Test()
 {
 	//테스트용 아군 유닛 생성//////////////////////////////////////
@@ -589,28 +591,39 @@ void Chess_player::Test()
 	//	TestEnemy->Info.Real_Y = 1;
 	//	Piece_Board.emplace_back(TestEnemy);
 	//}
-	//{
-	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
-	//	Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
-	//	TestEnemy->Info.Position_X = 1;
-	//	TestEnemy->Info.Position_Y = 4;
-	//	TestEnemy->Info.Real_X = 1;
-	//	TestEnemy->Info.Real_Y = 4;
-	//	Piece_Board.emplace_back(TestEnemy);
-	//}
-	Spawn_Unit<SoulBreaker>(1, 6);
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
+		TestEnemy->Info.Position_X = 1;
+		TestEnemy->Info.Position_Y = 4;
+		TestEnemy->Info.Real_X = 1;
+		TestEnemy->Info.Real_Y = 4;
+		Piece_Board.emplace_back(TestEnemy);
+	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<SoulBreaker> TestEnemy = PTR1->CreateCom<SoulBreaker>();
+		TestEnemy->Info.Position_X = 2;
+		TestEnemy->Info.Position_Y = 6;
+		TestEnemy->Info.Real_X = 2;
+		TestEnemy->Info.Real_Y = 6;
+		Piece_Board.emplace_back(TestEnemy);
+	}
+	//Spawn_Unit<SoulBreaker>(2, 6);
+	//Spawn_Unit<SwordMaster>(3, 6);
+	//Spawn_Unit<SwordMaster>(8, 8, Chess_Team::Enemy);
 
 	//테스트용 적 유닛 생성///////////////////////////////////////////////
-	/*{
-		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
-		Game_Ptr<WindRanger> TestEnemy = PTR1->CreateCom<WindRanger>();
-		TestEnemy->Info.Position_X = 7;
-		TestEnemy->Info.Position_Y = 6;
-		TestEnemy->Info.Real_X = 7;
-		TestEnemy->Info.Real_Y = 6;
-		TestEnemy->Info.MyUnit = false;
-		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
-	}
+	//{
+	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+	//	Game_Ptr<WindRanger> TestEnemy = PTR1->CreateCom<WindRanger>();
+	//	TestEnemy->Info.Position_X = 7;
+	//	TestEnemy->Info.Position_Y = 6;
+	//	TestEnemy->Info.Real_X = 7;
+	//	TestEnemy->Info.Real_Y = 6;
+	//	TestEnemy->Info.MyUnit = false;
+	//	Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
+	//}
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
@@ -618,8 +631,9 @@ void Chess_player::Test()
 		TestEnemy->Info.Position_Y = 7;
 		TestEnemy->Info.Real_X = 6;
 		TestEnemy->Info.Real_Y = 7;
+		TestEnemy->Info.MyUnit = false;
 		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
-	}*/
+	}
 	//{
 	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 	//	Game_Ptr<WareWolf> TestEnemy = PTR1->CreateCom<WareWolf>();
@@ -661,30 +675,30 @@ void Chess_player::Ui_Switch()
 		}
 	}
 
-	if (HGAMEINPUT::Down("Test"))
-	{
-		if (Ui_Black->IsUpdate())
-		{
-			Ui_Black->Off();
-			for (size_t i = 0; i < 5; i++)
-			{
-				if (Store_ColRenderer[i] != nullptr)
-				{
-					Store_ColRenderer[i]->Off();
-				}
-			}
-		}
+	//if (HGAMEINPUT::Down("Test"))
+	//{
+	//	if (Ui_Black->IsUpdate())
+	//	{
+	//		Ui_Black->Off();
+	//		for (size_t i = 0; i < 5; i++)
+	//		{
+	//			if (Store_ColRenderer[i] != nullptr)
+	//			{
+	//				Store_ColRenderer[i]->Off();
+	//			}
+	//		}
+	//	}
 
-		else
-		{
-			Ui_Black->On();
-			for (size_t i = 0; i < 5; i++)
-			{
-				if (Store_ColRenderer[i] != nullptr)
-				{
-					Store_ColRenderer[i]->On();
-				}
-			}
-		}
-	}
+	//	else
+	//	{
+	//		Ui_Black->On();
+	//		for (size_t i = 0; i < 5; i++)
+	//		{
+	//			if (Store_ColRenderer[i] != nullptr)
+	//			{
+	//				Store_ColRenderer[i]->On();
+	//			}
+	//		}
+	//	}
+	//}
 }

@@ -134,3 +134,11 @@ void MiniWolf::Update()
 		break;
 	}
 }
+
+void MiniWolf::Skill_Init()
+{
+}
+
+void MiniWolf::Skill_Update()
+{
+}

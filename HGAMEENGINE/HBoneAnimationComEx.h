@@ -144,12 +144,26 @@ public:
 
 	void SetCurFrame(int _Frame);
 
-	//남대현 추가
-	public:
-		int Get_Num()
-		{
-			return m_CurAni->m_CurFrame;
-		}
+//남대현 추가//////////////////////////
+public:
+	int Get_Num()
+	{
+		return m_CurAni->m_CurFrame;
+	}
+
+	//아래 두개는 디버깅 테스트용.
+	int Get_EndNum()
+	{
+		return m_CurAni->m_End;
+	}
+
+	bool Is_End()
+	{
+		return m_CurAni->m_CurFrame >= m_CurAni->m_End - 3; //-3인 이유. end = timeend-1이라 "1" 프레임 증가 후 수치 비교라 1  timeend-1이랑 또 비교를 하기때문에 1. 이유는 몰루.
+	}
+
+
+///////////////////////////////////////
 
 public:
 	// 어택으로 바꽈

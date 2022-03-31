@@ -275,3 +275,11 @@ void WareWolf::Skile()
 		}
 	}
 }
+
+void WareWolf::Skill_Init()
+{
+}
+
+void WareWolf::Skill_Update()
+{
+}

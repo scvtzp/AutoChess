@@ -1,17 +1,29 @@
 #pragma once
 #include <GAMELOGIC.h>
 
-class Game_Actor;
-class HBoneAnimationCom;
-class CL_TestScene : public HSCENECOM
+class MeshCreateData
 {
 public:
+	Game_String m_MeshName;
+	Game_String m_TakeName;
+	Game_Vector m_Scale;
+	Game_Vector m_Pos;
+	Game_Vector m_Rot;
+};
+
+class Game_Actor;
+class HBoneAnimationCom;
+class HHeightMap;
+
+class CL_TestScene : public HSCENECOM
+{
+	static CL_TestScene* Inst;
+	static HBoneAnimationCom* AniCom;
 	Game_Ptr<class HOutLineFilter> m_LineFilter;
 	Game_Ptr<class HBloomFilter> m_BloomFilter;
 
-	//¸¶¿ì½º
-	Game_Ptr<Game_Collision> Mouse_Col;
-	Game_Ptr<Game_Renderer> Mouse_ColRenderer;
+	//Game_Ptr<class HOutLineFilter> m_LineFilter_Ui;
+	//Game_Ptr<class HBloomFilter> m_BloomFilter_Ui;
 
 public:
 	Game_Ptr<Game_Actor> CamActor;
@@ -20,23 +32,28 @@ public:
 public:
 	Game_Ptr<Game_Actor> TestActor;
 	Game_Ptr<Game_Actor> LightTest;
-	Game_Ptr<Game_Actor> Mouse_Actor;
 	//Game_Ptr<Game_Actor> Light_Ui;
 	Game_Ptr<Game_Actor> PlayerActor;
+	Game_Ptr<HHeightMap> Map;
 	Game_Ptr<HLight> LightCom;
 
+public:
+	void PlayerUpdate();
+
+public:
 	CL_TestScene();
 	~CL_TestScene();
+
+public:
 	void SceneChangeStart() override;
 	void SceneChangeEnd() override;
 	void Init() override;
 	void Update() override;
 
+	void LoadAni(Game_String _Name);
+
 	void Load_Functions();
 
-	Game_Ptr<Game_BoneAnimationCom_Ex>	NewPtr;
-
-private:
-
+	bool Start = false;
+	float StartTime = 0.f;
 };
-

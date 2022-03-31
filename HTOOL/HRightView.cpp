@@ -9,6 +9,7 @@
 
 #include "TOOLSCENE.h"
 #include "LobbyScene.h"
+#include <HGAMESOUND.h>
 #include "TestScene.h"
 // Game_RightView.cpp: 구현 파일
 Game_RightView* Game_RightView::View;
@@ -79,11 +80,29 @@ int Game_RightView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CFormView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
+	//key 로드
+	HGAMEINPUT::Init();
+
+	//sound 로드
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"SOUND");
+
+		auto FileList = Dic.DirAllFile();
+		for (auto& _File : FileList)
+		{
+			HGAMESOUND::Load(_File);
+		}
+	}
+
 
 	HGAMESCENE::Create<HTOOLMAPSCENE>(L"MAPSCENE");
 	HGAMESCENE::Create<LobbyScene>(L"LobbyScene");
 	HGAMESCENE::Create<TestScene>(L"TestScene");
-	HGAMESCENE::ChangeScene(L"LobbyScene");
+	HGAMESCENE::ChangeScene(L"MAPSCENE");
 
 
 	// TODO:  여기에 특수화된 작성 코드를 추가합니다.

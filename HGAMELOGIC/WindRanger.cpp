@@ -286,3 +286,11 @@ void WindRanger::Fbx_Init()
 
 	UpCheck = true;
 }
+
+void WindRanger::Skill_Init()
+{
+}
+
+void WindRanger::Skill_Update()
+{
+}

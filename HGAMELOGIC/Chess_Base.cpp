@@ -331,10 +331,11 @@ void Chess_Base::AStar()
 
 void Chess_Base::Move()
 {
+	//벤치에 있다면(필드에 없다면) 리턴
 	if (Info.Banch)
-	{
 		return;
-	}
+
+	//이동 중
 	else if (IsMove)
 	{
 		Info.State = Chess_State::Run;
@@ -374,19 +375,24 @@ void Chess_Base::Move()
 		}
 	}
 
-	else if (Info.Mana >= 100)
+	//스킬 시전 시작
+	else if (Info.Mana >= Info.MaxMana)
 	{
 		Info.Mana = 0;
-		Info.Play_Skile = true;
+		Info.Play_Skill = true;
+		Skill_Init();
 		return;
 	}
-	else if (Info.Play_Skile)
+
+	//스킬 시전 중
+	else if (Info.Play_Skill)
 	{
 		Info.Mana = 0;
 		if(Info.State != Chess_State::Skill02)
 			Info.State = Chess_State::Skill01;
 	}
 
+	//공격 중
 	else if (Me_CloseEnemy_distance() <= Info.Range)
 	{
 		Info.State = Chess_State::Attack_1;
@@ -428,6 +434,7 @@ void Chess_Base::Move()
 			}
 		}
 	}
+	//이동 계산 시작
 	else
 	{
 		AStar();
@@ -697,6 +704,14 @@ void Chess_Base::Death_Check()
 	}
 }
 
+void Chess_Base::Skill_Init()
+{
+}
+
+void Chess_Base::Skill_Update()
+{
+}
+
 void Chess_Base::Base_Update()
 {
 	Set_Ani();
@@ -732,6 +747,9 @@ void Chess_Base::Set_Ani()
 		break;
 	case Chess_State::Skill01:
 		NewPtr->ChangeAni(L"Skill01");
+		break;
+	case Chess_State::Skill02:
+		NewPtr->ChangeAni(L"Skill02");
 		break;
 	case Chess_State::Victory:
 		NewPtr->ChangeAni(L"Victory");

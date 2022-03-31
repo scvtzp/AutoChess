@@ -20,6 +20,9 @@ public:
 
 	void Fbx_Init();
 
+	void Skill_Init() override;
+	void Skill_Update() override;
+
 	//Ãâ·Â¿ë
 	//Game_Ptr<Game_Actor> MeshActor;
 	//<Game_BoneAnimationCom_Ex> NewPtr;

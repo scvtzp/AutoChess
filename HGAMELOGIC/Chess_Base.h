@@ -106,8 +106,8 @@ struct ChessPiece_Info
 	float Hp = 0; //체력
 	float MaxHp = 0;//최대체력
 	int	Mana = 0; //마나
-	int	MaxMana = 0; //마나
-	bool Play_Skile = false; //스킬쓰는중인가요
+	int	MaxMana = 100; //마나
+	bool Play_Skill = false; //스킬쓰는중인가요
 	float SkileTime = 0.f;
 
 	int Atk = 0; //공격력
@@ -192,7 +192,9 @@ public:
 	void IsBanch();
 	void Check_Death(bool Check = false);
 	void Death_Check();
-	
+	virtual void Skill_Init();
+	virtual void Skill_Update();
+
 	//BaseUpdate 내부
 	void Base_Update();
 	void Set_Ani();

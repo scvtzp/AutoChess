@@ -76,15 +76,15 @@ void SoulBreaker::Init()
 		Ptr[0]->SAMPLER(L"Smp", L"LWSMP");
 
 		NewPtr->CreateAni(L"006S1_Atk1.fbx", L"Attack01", 0, 33, 0);
-		//NewPtr->CreateAni(L"006S1_Atk2.fbx", L"Attack02", 0, 41, 0);
-		//NewPtr->CreateAni(L"006S1_Born.fbx", L"Born", 0, 17, 0);
-		//NewPtr->CreateAni(L"006S1_Death.fbx", L"Death", 0, 68, 0);
-		//NewPtr->CreateAni(L"006S1_Dizzy.fbx", L"Dizzy", 0, 61, 0);
+		NewPtr->CreateAni(L"006S1_Atk2.fbx", L"Attack02", 0, 41, 0);
+		NewPtr->CreateAni(L"006S1_Born.fbx", L"Born", 0, 17, 0);
+		NewPtr->CreateAni(L"006S1_Death.fbx", L"Death", 0, 68, 0);
+		NewPtr->CreateAni(L"006S1_Dizzy.fbx", L"Dizzy", 0, 61, 0);
 		NewPtr->CreateAni(L"006S1_Idle.fbx", L"Idle", 0, 41, 0);
-		//NewPtr->CreateAni(L"006S1_Jump.fbx", L"Jump", 0, 49, 0);
-		//NewPtr->CreateAni(L"006S1_Run.fbx", L"Run", 0, 17, 0);
-		//NewPtr->CreateAni(L"006S1_Skile01.fbx", L"Skill01", 0, 41, 0);
-		//NewPtr->CreateAni(L"006S1_Victory.fbx", L"Victory", 0, 93, 0);
+		NewPtr->CreateAni(L"006S1_Jump.fbx", L"Jump", 0, 49, 0);
+		NewPtr->CreateAni(L"006S1_Run.fbx", L"Run", 0, 17, 0);
+		NewPtr->CreateAni(L"006S1_Skile01.fbx", L"Skill01", 0, 41, 0);
+		NewPtr->CreateAni(L"006S1_Victory.fbx", L"Victory", 0, 93, 0);
 
 		NewPtr->ChangeAni(L"Idle");
 
@@ -99,7 +99,7 @@ void SoulBreaker::Update()
 	if (!Chess_player::Round)
 		return;	
 
-	Death_Check();
+	//Death_Check();
 	//if (Info.Hp <= 0)
 	//{
 	//	ACTOR()->Death();
@@ -109,14 +109,54 @@ void SoulBreaker::Update()
 
 	if (!Info.Banch)
 	{
-		//Move();
-		//Base_Update();
+		Move();
+		Base_Update();
 	}
 
-	//Skile();
+	if (Info.Play_Skill)
+		Skill_Update();
 }
 
-void SoulBreaker::Skile()
+void SoulBreaker::Skill_Init()
 {
-	int a;
+	Info.State = Chess_State::Skill01;
+	Info.Play_Skill = true;
+
+	int Rand_Num = rand() % Chess_player::Piece_Enemy_ChessBoard.size();
+	Game_Ptr<Chess_Base> Target;
+	for (auto& itor : Chess_player::Piece_Enemy_ChessBoard)
+	{
+		if (Rand_Num == 0)
+		{
+			Target = itor;
+			break;
+		}
+		else
+			Rand_Num--;
+	}
+
+	Target.PTR->Info.Hp - 300;
+}
+
+void SoulBreaker::Skill_Update()
+{
+	Info.Mana = 0;
+
+	bool a = NewPtr->Is_End();
+	int b = NewPtr->Get_EndNum();
+	int c = NewPtr->Get_Num();
+
+	wcout << L"소울 브레이커";
+	wcout << b << L" " << c << L" ";
+	if (a)
+		wcout << L"true";
+	else
+		wcout << L"false";
+	wcout << endl;
+
+	if (Info.State == Chess_State::Skill01 && NewPtr->Is_End())
+	{
+		Info.State = Chess_State::Idle;
+		Info.Play_Skill = false;
+	}
 }

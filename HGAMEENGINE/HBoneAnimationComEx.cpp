@@ -295,6 +295,9 @@ void Game_BoneAnimationCom_Ex::SetCurFrame(int _Frame)
 void Game_BoneAnimationCom_Ex::ChangeAni(const Game_String& _AniName)
 {
 	// 이제 해야할 애니메이션
+	if (m_CurAni == FindAni(_AniName))
+		return;
+
 	m_CurAni = FindAni(_AniName);
 
 	if (nullptr == m_CurAni)

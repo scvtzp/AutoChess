@@ -41,7 +41,6 @@ void SwordMaster::Set_Info(int Star = 1)
 	Info.Star = Star; //등급
 
 	Info.Hp = 600; //체력
-	Info.Mana = 0; //마나
 
 	Info.Atk = 67; //공
 	Info.Atk_Rate = 1.1f; //공속
@@ -99,7 +98,8 @@ void SwordMaster::Update()
 	if (!Chess_player::Round)
 		return;
 
-	Death_Check();
+	//Death_Check();
+	
 	/*if (Info.Hp <= 0)
 	{
 		ACTOR()->Death();
@@ -115,54 +115,33 @@ void SwordMaster::Update()
 	if (!Info.Banch)
 	{
 		Move();
+		Base_Update();
 	}
 
-	Skile();
-
-	switch (Info.State)
-	{
-	case Chess_State::Attack_1:
-		NewPtr->ChangeAni(L"Attack01");
-		break;
-	case Chess_State::Attack_2:
-		NewPtr->ChangeAni(L"Attack02");
-		break;
-	case Chess_State::Born:
-		NewPtr->ChangeAni(L"Born");
-		break;
-	case Chess_State::Death:
-		NewPtr->ChangeAni(L"Death");
-		break;
-	case Chess_State::Dizzy:
-		NewPtr->ChangeAni(L"Dizzy");
-		break;
-	case Chess_State::Idle:
-		NewPtr->ChangeAni(L"Idle");
-		break;
-	case Chess_State::Jump:
-		NewPtr->ChangeAni(L"Jump");
-		break;
-	case Chess_State::Run:
-		NewPtr->ChangeAni(L"Run");
-		break;
-	case Chess_State::Skill01:
-		NewPtr->ChangeAni(L"Skill01");
-		break;
-	case Chess_State::Skill02:
-		NewPtr->ChangeAni(L"Skill02");
-		break;
-	case Chess_State::Victory:
-		NewPtr->ChangeAni(L"Victory");
-		break;
-	default:
-		NewPtr->ChangeAni(L"Idle");
-		break;
-	}
+	if(Info.Play_Skill)
+		Skill_Update();
 }
 
-void SwordMaster::Skile()
+void SwordMaster::Skill_Init()
 {
-	if (Info.State == Chess_State::Skill01 && NewPtr->Get_Num() >= 374 )
+}
+
+void SwordMaster::Skill_Update()
+{
+	bool a = NewPtr->Is_End();
+	int b = NewPtr->Get_EndNum();
+	int c = NewPtr->Get_Num();
+
+	wcout << L"소드 마스터";
+	wcout << b << L" " << c << L" ";
+	if (a)
+		wcout << L"true";
+	else
+		wcout << L"false";
+	wcout << endl;
+
+	//if (Info.State == Chess_State::Skill01 && NewPtr->Get_Num() >= 374 )
+	if (Info.State == Chess_State::Skill01 && NewPtr->Is_End() )
 	{
 		Info.State = Chess_State::Skill02;
 	}
@@ -201,7 +180,9 @@ void SwordMaster::Skile()
 		else
 		{
 			Info.SkileTime = 0;
-			Info.Play_Skile = false;
+			Info.Mana = 0;
+			Info.Play_Skill = false;
+			Info.State = Chess_State::Idle;
 		}
 	}
 }
