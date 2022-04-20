@@ -19,3 +19,5 @@
 #include <HGAMESOUND.h>
 #include <HGAMEMOVIE.h>
 #include <HGAMESPRITE.h>
+#include <HGAMEINPUT.h>
+#include <HGAMESCENE.h>

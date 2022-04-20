@@ -108,7 +108,7 @@ struct ChessPiece_Info
 	int	Mana = 0; //마나
 	int	MaxMana = 100; //마나
 	bool Play_Skill = false; //스킬쓰는중인가요
-	float SkileTime = 0.f;
+	float SkileTime = 0.f; //스킬 몇초나 쓰고있나요
 
 	int Atk = 0; //공격력
 	float Atk_Rate = 0; //공속

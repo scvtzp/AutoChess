@@ -24,6 +24,9 @@
     <ClCompile Include="SoulBreaker.cpp">
       <Filter>Chess_Unit\Unit\SoulBreaker</Filter>
     </ClCompile>
+    <ClCompile Include="Unicorn.cpp">
+      <Filter>Chess_Unit\Unit\Unicorn</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FreeCam.h" />
@@ -50,6 +53,9 @@
     <ClInclude Include="SoulBreaker.h">
       <Filter>Chess_Unit\Unit\SoulBreaker</Filter>
     </ClInclude>
+    <ClInclude Include="Unicorn.h">
+      <Filter>Chess_Unit\Unit\Unicorn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Chess_Unit">
@@ -72,6 +78,9 @@
     </Filter>
     <Filter Include="Chess_Unit\Unit\SoulBreaker">
       <UniqueIdentifier>{85dfeba3-f852-4fcf-932a-7b766d681e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chess_Unit\Unit\Unicorn">
+      <UniqueIdentifier>{c1c362d2-8132-4a81-a1bd-9735048378af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

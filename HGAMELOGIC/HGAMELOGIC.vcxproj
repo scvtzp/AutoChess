@@ -168,6 +168,7 @@
     <ClCompile Include="Game_2DAnimation.cpp" />
     <ClCompile Include="MiniWolf.cpp" />
     <ClCompile Include="SoulBreaker.cpp" />
+    <ClCompile Include="Unicorn.cpp" />
     <ClCompile Include="Warewolf.cpp" />
     <ClCompile Include="WindRanger.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -185,6 +186,7 @@
     <ClInclude Include="Game_2DAnimation.h" />
     <ClInclude Include="MiniWolf.h" />
     <ClInclude Include="SoulBreaker.h" />
+    <ClInclude Include="Unicorn.h" />
     <ClInclude Include="Warewolf.h" />
     <ClInclude Include="WindRanger.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

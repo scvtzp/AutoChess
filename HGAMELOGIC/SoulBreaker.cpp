@@ -87,7 +87,6 @@ void SoulBreaker::Init()
 		NewPtr->CreateAni(L"006S1_Victory.fbx", L"Victory", 0, 93, 0);
 
 		NewPtr->ChangeAni(L"Idle");
-
 		NewRender->ShadowOn();
 	}
 }

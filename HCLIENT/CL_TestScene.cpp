@@ -415,6 +415,39 @@ void CL_TestScene::Load_Functions()
 		//Game_Fbx_Ex::Load(Dic.PlusFileName(L"WindRangerS1.FBX"));
 	}
 
+	//유니콘
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+		Dic.Move(L"Unit");
+		Dic.Move(L"Unicorn");
+
+		auto FileList = Dic.DirAllFile();
+		for (auto& i : FileList)
+		{
+			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+		}
+	}
+	//유니콘 이펙트
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"TEXTURE");
+		Dic.Move(L"Effect");
+		auto FileList = Dic.DirAllFile();
+		for (auto& _File : FileList)
+		{
+			HTEXTURE::Load(_File);
+		}
+
+		Game_Sprite::Create(L"Unicorn_Circle.png", 4, 4);
+	}
+
 	//Static FBX로드
 	{
 		HGAMEDIRECTORY Dic;

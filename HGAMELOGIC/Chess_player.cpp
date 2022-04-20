@@ -8,6 +8,7 @@
 #include "SwordMaster.h"
 #include "Warewolf.h"
 #include "SoulBreaker.h"
+#include "Unicorn.h"
 
 #define Store_Unit_Scale { 1.8f, 1.8f , 1.f }
 #define Mouse_Scale { 0.4f, 0.4f , 1.f } //100x100 ÇÈ¼¿
@@ -634,6 +635,17 @@ void Chess_player::Test()
 		TestEnemy->Info.MyUnit = false;
 		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
 	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<Unicorn> TestEnemy = PTR1->CreateCom<Unicorn>();
+		TestEnemy->Info.Position_X = 5;
+		TestEnemy->Info.Position_Y = 7;
+		TestEnemy->Info.Real_X = TestEnemy->Info.Position_X;
+		TestEnemy->Info.Real_Y = TestEnemy->Info.Position_Y;
+		TestEnemy->Info.MyUnit = false;
+		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
+	}
+
 	//{
 	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 	//	Game_Ptr<WareWolf> TestEnemy = PTR1->CreateCom<WareWolf>();
