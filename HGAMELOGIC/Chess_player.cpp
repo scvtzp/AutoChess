@@ -635,16 +635,16 @@ void Chess_player::Test()
 		TestEnemy->Info.MyUnit = false;
 		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
 	}
-	{
-		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
-		Game_Ptr<Unicorn> TestEnemy = PTR1->CreateCom<Unicorn>();
-		TestEnemy->Info.Position_X = 5;
-		TestEnemy->Info.Position_Y = 7;
-		TestEnemy->Info.Real_X = TestEnemy->Info.Position_X;
-		TestEnemy->Info.Real_Y = TestEnemy->Info.Position_Y;
-		TestEnemy->Info.MyUnit = false;
-		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
-	}
+	//{
+	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+	//	Game_Ptr<Unicorn> TestEnemy = PTR1->CreateCom<Unicorn>();
+	//	TestEnemy->Info.Position_X = 5;
+	//	TestEnemy->Info.Position_Y = 7;
+	//	TestEnemy->Info.Real_X = TestEnemy->Info.Position_X;
+	//	TestEnemy->Info.Real_Y = TestEnemy->Info.Position_Y;
+	//	TestEnemy->Info.MyUnit = false;
+	//	Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
+	//}
 
 	//{
 	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();

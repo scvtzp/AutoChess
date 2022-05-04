@@ -195,6 +195,9 @@
     <ClInclude Include="GAMELOGIC.h" />
     <ClInclude Include="SwordMaster.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="개선점.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

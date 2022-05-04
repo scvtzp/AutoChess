@@ -83,4 +83,7 @@
       <UniqueIdentifier>{c1c362d2-8132-4a81-a1bd-9735048378af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="개선점.txt" />
+  </ItemGroup>
 </Project>

@@ -9,9 +9,9 @@
 #include <HGAMESOUND.h>
 
 //Scene
-#include "HCLIENTSCENECOM.h"
 #include "CL_TestScene.h"
 #include "CL_LobbyScene.h"
+#include "CL_LoadScene.h"
 
 
 #pragma comment(lib, "HGAMEBASE.lib")
@@ -45,8 +45,9 @@ int __stdcall Start()
 
 	//HGAMESCENE::Create<HCLIENTSCENECOM>(L"TEST");
 	HGAMESCENE::Create<CL_LobbyScene>(L"LobbyScene");
-	HGAMESCENE::Create<CL_TestScene>(L"TestScene");
-	HGAMESCENE::ChangeScene(L"TestScene");
+	HGAMESCENE::Create<CL_TestScene>(L"TestScene"); //∏ﬁ¿Œ æ¿
+	HGAMESCENE::Create<CL_LoadScene>(L"LoadScene");
+	HGAMESCENE::ChangeScene(L"LoadScene");
 
 	return 1;
 }
