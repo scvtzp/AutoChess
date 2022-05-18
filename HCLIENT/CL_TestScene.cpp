@@ -26,7 +26,7 @@ void CL_TestScene::SceneChangeStart()
 	SCENE()->ColLink((int)Col_Name::Button, (int)Col_Name::Mouse);
 	SCENE()->ColLink((int)Col_Name::Board, (int)Col_Name::Mouse);
 
-	Load_Functions();
+	//Load_Functions();
 
 	//기본 캠 생성
 	{
@@ -146,14 +146,11 @@ void CL_TestScene::SceneChangeStart()
 	//	NewRender->ShadowOn();
 	//}
 
-
 	//플레이어 생성
 	{
 		Game_Ptr<Game_Actor> PTR = SCENE()->CreateActor();
 		PTR->CreateCom<Chess_player>();
 	}
-
-
 
 	//빛
 	{

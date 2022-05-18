@@ -56,6 +56,7 @@
     <ClInclude Include="Unicorn.h">
       <Filter>Chess_Unit\Unit\Unicorn</Filter>
     </ClInclude>
+    <ClInclude Include="Unit_Header.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Chess_Unit">

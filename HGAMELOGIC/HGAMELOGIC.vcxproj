@@ -194,6 +194,7 @@
     <ClInclude Include="FreeCam.h" />
     <ClInclude Include="GAMELOGIC.h" />
     <ClInclude Include="SwordMaster.h" />
+    <ClInclude Include="Unit_Header.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="개선점.txt" />

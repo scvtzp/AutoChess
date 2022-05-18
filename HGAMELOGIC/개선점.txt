@@ -11,3 +11,33 @@
 
 6. 리롤하면서 안산 유닛도 유닛풀에서 빠지기때문에 풀 부족으로 터진다.
 	이거 그냥 유닛풀 시스템 삭제. 아무도움안됨
+
+당장 할거
+1. 크리에이트 애니도 로드씬에 넣기. 
+본이랑 상관 없는걸로 아니까 하나 대충 아무거나 만들고
+거기다가 애니매이션 덮기.
+or 
+새로 만들어서 하기.
+새로 만들면 오래걸리지 않나? 
+어쩌피 시간은 creatani에서 먹으니까 상관없나? 모르겠음.
+
+2. 로드 시간 확인
+
+
+뭐하고있었더라?
+로드 개선
+로드 이미지 좀 화질 좋은거 찾아보자..
+내가 꿈꾸던 병렬로드는 불가능. 각종 로드 중간에 새 로드 들어오면 엑세스 위반뜬다..
+
+메모
+로드 오래걸리는애 : Game_Fbx_Ex::MeshAnimationLoad
+
+메모2
+Pose ( BIND_POSES )  Node ( LangRen_C1 ) The relative matrices do not match
+Pose ( BIND_POSES )  Node ( ShangJin_1 ) Not all the deformers are stored in this BindPose
+이거왜뜨지?
+
+
+
+단축키
+컨트롤 D -> 지금 줄 바로 아래에 복사

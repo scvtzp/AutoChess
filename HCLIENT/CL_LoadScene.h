@@ -15,5 +15,8 @@ public:
 	void Update() override;
 	void Load(int _Load_Num);
 
+	void Load_Functions();
+
 	int LoadCount = 0;
+	bool First_LoadCheck = false;
 };

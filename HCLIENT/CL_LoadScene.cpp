@@ -3,9 +3,10 @@
 #include <thread>
 #include <vector>
 #include <Game_2DAnimation.h>
+#include <Unit_Header.h>
 
 //잠깐 100으로 바꿈
-#define LoadSceneNum 50000
+#define LoadSceneNum 1
 
 CL_LoadScene::CL_LoadScene()
 {
@@ -64,19 +65,23 @@ void CL_LoadScene::SceneChangeStart()
 		Renderer->SAMPLER(L"Smp", "LWSMP");
 	}
 
-	for (int i = 0; i < LoadSceneNum; ++i)
-	{
-		//스레드 생성.
-		std::thread th1(&CL_LoadScene::Load, this, i);
+	std::thread th_LoadFnc(&CL_LoadScene::Load_Functions, this);
+	th_LoadFnc.detach();
 
-		//스레드 종료 조건 설정-detach : 종료를 기다리지 않습니다.
-		//종료 기다리려면 .join();
-		th1.detach();
-	}
+	//for (int i = 0; i < LoadSceneNum; ++i)
+	//{
+	//	//스레드 생성.
+	//	std::thread th1(&CL_LoadScene::Load, this, i);
+
+	//	//스레드 종료 조건 설정-detach : 종료를 기다리지 않습니다.
+	//	//종료 기다리려면 .join();
+	//	th1.detach();
+	//}
 }
 
 void CL_LoadScene::SceneChangeEnd()
 {
+	SCENE()->ActorClear();
 }
 
 void CL_LoadScene::Init()
@@ -85,21 +90,43 @@ void CL_LoadScene::Init()
 
 void CL_LoadScene::Update()
 {
-	//스레드 로드가 끝나면 씬 전환. 조건은 배열 올 트루 or 뮤텍스
+	//1차 로드 이후 본격적인 다중 스레드 사용하는 애니메이션 로드.(하나씩 미리 만들기)
+	if (First_LoadCheck == true)
+	{
+		//여까지 37초 소요됨
+		First_LoadCheck = false; //이후 다시는 true될 일 없음.
 
+		//스레드 생성. 
+		for (int i = 0; i < LoadSceneNum; ++i)
+		{
+			std::thread th1(&CL_LoadScene::Load, this, i);
+			th1.detach();
+		}
+	}
+
+	//스레드 로드가 끝나면 씬 전환. 
+	//조건은 뮤텍스 사용한 안전한 증감.
 	if(LoadCount >= LoadSceneNum)
 		HGAMESCENE::ChangeScene(L"TestScene");
 }
 
+//어떤거 로드할건지.
+//다 상세 수치가 제각각이라 그냥 때려박음.
 void CL_LoadScene::Load(int _Load_Num)
 {
-	//어떤거 로드할건지.
-	//다 상세 수치가 제각각이라 그냥 때려박음.
 	switch (_Load_Num)
 	{
 	case 0:
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
+	}
 		break;
 	case 1:
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<SoulBreaker> TestEnemy = PTR1->CreateCom<SoulBreaker>();
+	}
 		break;
 	case 2:
 		break;
@@ -151,5 +178,218 @@ void CL_LoadScene::Load(int _Load_Num)
 	//_Count++;
 	Mut.lock();
 	LoadCount++;
+	Mut.unlock();
+}
+
+void CL_LoadScene::Load_Functions()
+{
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"TEXTURE");
+		Dic.Move(L"GLOBAL");
+
+		auto FileList = Dic.DirAllFile();
+
+		for (auto& _File : FileList)
+		{
+			HTEXTURE::Load(_File);
+		}
+	}
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"TEXTURE");
+
+		auto FileList = Dic.DirAllFile();
+
+		for (auto& _File : FileList)
+		{
+			HTEXTURE::Load(_File);
+		}
+		for (auto& _File : FileList)
+		{
+			Game_Sprite::Create(_File.FileName());
+		}
+	}
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"TEXTURE");
+		Dic.Move(L"Shop");
+		auto FileList = Dic.DirAllFile();
+		for (auto& _File : FileList)
+		{
+			HTEXTURE::Load(_File);
+		}
+
+		Game_Sprite::Create(L"SwordMaster.png", 8, 5);
+		Game_Sprite::Create(L"WareWolf.png", 8, 7);
+		Game_Sprite::Create(L"WindRanger.png", 8, 7);
+	}
+
+	//FBX로드
+	//소드마스터
+	//윈드레인저
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+		Dic.Move(L"Unit");
+
+		auto FileList = Dic.DirAllFile();
+		Game_Fbx_Ex::Load(Dic.PlusFileName(L"SwordMasterS1.FBX"));
+		Game_Fbx_Ex::Load(Dic.PlusFileName(L"WindRangerS1.FBX"));
+	}
+
+	//웨어울프
+	{
+		{
+			HGAMEDIRECTORY Dic;
+
+			Dic.MoveParent(L"AutoChess");
+			Dic.Move(L"RES");
+			Dic.Move(L"MESH");
+			Dic.Move(L"Unit");
+			Dic.Move(L"WareWolf");
+
+			auto FileList = Dic.DirAllFile();
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1.FBX"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Run.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Idle.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Born.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Death.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Dizzy.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Skill01.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Victory.fbx"));
+		}
+		{
+			HGAMEDIRECTORY Dic;
+
+			Dic.MoveParent(L"AutoChess");
+			Dic.Move(L"RES");
+			Dic.Move(L"MESH");
+			Dic.Move(L"Unit");
+			Dic.Move(L"WareWolf");
+			Dic.Move(L"S");
+
+			auto FileList = Dic.DirAllFile();
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Attack01.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Attack02.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Born.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Death.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Dizzy.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Idle.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Run.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Victory.fbx"));
+		}
+		{
+			HGAMEDIRECTORY Dic;
+
+			Dic.MoveParent(L"AutoChess");
+			Dic.Move(L"RES");
+			Dic.Move(L"MESH");
+			Dic.Move(L"Unit");
+			Dic.Move(L"WareWolf");
+			Dic.Move(L"C");
+
+			auto FileList = Dic.DirAllFile();
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack01.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack02.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Born.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Death.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Dizzy.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Idle.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Run.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Victory.fbx"));
+		}
+	}
+
+	//(암살고블린) 소울브레이커
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+		Dic.Move(L"Unit");
+		Dic.Move(L"SoulBreaker");
+
+		auto FileList = Dic.DirAllFile();
+		for (auto& i : FileList)
+		{
+			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+		}
+		//Game_Fbx_Ex::Load(Dic.PlusFileName(L"SwordMasterS1.FBX"));
+		//Game_Fbx_Ex::Load(Dic.PlusFileName(L"WindRangerS1.FBX"));
+	}
+
+	//유니콘
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+		Dic.Move(L"Unit");
+		Dic.Move(L"Unicorn");
+
+		auto FileList = Dic.DirAllFile();
+		for (auto& i : FileList)
+		{
+			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+		}
+	}
+	//유니콘 이펙트
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"TEXTURE");
+		Dic.Move(L"Effect");
+		auto FileList = Dic.DirAllFile();
+		for (auto& _File : FileList)
+		{
+			HTEXTURE::Load(_File);
+		}
+
+		Game_Sprite::Create(L"Unicorn_Circle.png", 4, 4);
+	}
+
+	//Static FBX로드
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+
+		HGAMEFILE NewFile;
+		NewFile.SetPath(Dic.PlusFileName(L"Grass.fbx"));
+		Game_StaticFBX::Load(NewFile);
+	}
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+
+		HGAMEFILE NewFile;
+		NewFile.SetPath(Dic.PlusFileName(L"Board.fbx"));
+		Game_StaticFBX::Load(NewFile);
+	}
+
+	Mut.lock();
+	First_LoadCheck = true;
 	Mut.unlock();
 }
