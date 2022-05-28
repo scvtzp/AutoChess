@@ -17,6 +17,9 @@ public:
 	void Skill_Init() override;
 	void Skill_Update() override;
 
+	//Ãâ·Â
+	Game_Ptr<Game_Actor> Unicorn_Effect_Actor;
+
 	Game_Ptr<Game_2DAnimation> Unicorn_Effect;
 };
 
