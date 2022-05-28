@@ -79,11 +79,13 @@ void Unicorn::Init()
 	//스킬 이펙트 미리 로드
 	{
 		float4 DRAWCOLOR = { 1,1,1,1 };
+		float4 CUTDATA = { 0,0,1,1 };
 
-		Game_Ptr<Game_Renderer> Unicorn_Effect_Renderer = ACTOR()->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Ui);
+		Game_Ptr<Game_Renderer> Unicorn_Effect_Renderer = ACTOR()->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Default);
 		Unicorn_Effect = ACTOR()->CreateCom<Game_2DAnimation>(Unicorn_Effect_Renderer);
 		Unicorn_Effect->CreateAni(L"Unicorn_Effect", L"Unicorn_Circle.png", 0, 15, 0.1f, true);
 		Unicorn_Effect->ChangeAni(L"Unicorn_Effect");
+		Unicorn_Effect_Renderer->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
 		Unicorn_Effect_Renderer->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
 		Unicorn_Effect_Renderer->TEXTURE(L"Tex", L"Unicorn_Circle.png");
 		Unicorn_Effect_Renderer->SAMPLER(L"Smp", "LWSMP");

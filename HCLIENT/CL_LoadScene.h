@@ -18,5 +18,4 @@ public:
 	void Load_Functions();
 
 	int LoadCount = 0;
-	bool First_LoadCheck = false;
 };

@@ -2,15 +2,17 @@
 
 2. 죽을때 애니메이션 실행 후 죽게끔 함.
 
-3. 로드 씬 제작
-
-4. 유니콘
-
-5. 테스트 씬 만들어라.
-유닛들 하나 뽑고 스킬 테스트용.
+4. 유니콘 텍스쳐 이상함.
 
 6. 리롤하면서 안산 유닛도 유닛풀에서 빠지기때문에 풀 부족으로 터진다.
 	이거 그냥 유닛풀 시스템 삭제. 아무도움안됨
+
+7. 캡틴
+	배 이펙트
+
+8. 메두사 
+	내적 활용한 스킬.
+
 
 당장 할거
 1. 크리에이트 애니도 로드씬에 넣기. 
@@ -27,7 +29,6 @@ or
 뭐하고있었더라?
 로드 개선
 로드 이미지 좀 화질 좋은거 찾아보자..
-내가 꿈꾸던 병렬로드는 불가능. 각종 로드 중간에 새 로드 들어오면 엑세스 위반뜬다..
 
 메모
 로드 오래걸리는애 : Game_Fbx_Ex::MeshAnimationLoad
@@ -36,8 +37,6 @@ or
 Pose ( BIND_POSES )  Node ( LangRen_C1 ) The relative matrices do not match
 Pose ( BIND_POSES )  Node ( ShangJin_1 ) Not all the deformers are stored in this BindPose
 이거왜뜨지?
-
-
 
 단축키
 컨트롤 D -> 지금 줄 바로 아래에 복사

@@ -90,28 +90,17 @@ void CL_LoadScene::Init()
 
 void CL_LoadScene::Update()
 {
-	//1차 로드 이후 본격적인 다중 스레드 사용하는 애니메이션 로드.(하나씩 미리 만들기)
-	if (First_LoadCheck == true)
-	{
-		//여까지 37초 소요됨
-		First_LoadCheck = false; //이후 다시는 true될 일 없음.
-
-		//스레드 생성. 
-		for (int i = 0; i < LoadSceneNum; ++i)
-		{
-			std::thread th1(&CL_LoadScene::Load, this, i);
-			th1.detach();
-		}
-	}
-
 	//스레드 로드가 끝나면 씬 전환. 
-	//조건은 뮤텍스 사용한 안전한 증감.
+	//조건은 뮤텍스 사용한 안전한 증감. -> 응 한개라 의미없어짐
 	if(LoadCount >= LoadSceneNum)
 		HGAMESCENE::ChangeScene(L"TestScene");
 }
 
 //어떤거 로드할건지.
-//다 상세 수치가 제각각이라 그냥 때려박음.
+//다 상세 수치가 제각각이라 그냥 때려박음. //폐기
+/*
+내가 꿈꾸던 병렬로드는 불가능. 각종 ani로드 중간에 새 로드 들어오면 엑세스 위반뜬다..
+*/
 void CL_LoadScene::Load(int _Load_Num)
 {
 	switch (_Load_Num)
@@ -389,7 +378,21 @@ void CL_LoadScene::Load_Functions()
 		Game_StaticFBX::Load(NewFile);
 	}
 
+////개지랄 생성하면서 애니메이션 로드////
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
+	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<SoulBreaker> TestEnemy = PTR1->CreateCom<SoulBreaker>();
+	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<Unicorn> TestEnemy = PTR1->CreateCom<Unicorn>();
+	}
+
 	Mut.lock();
-	First_LoadCheck = true;
+	LoadCount++;
 	Mut.unlock();
 }
