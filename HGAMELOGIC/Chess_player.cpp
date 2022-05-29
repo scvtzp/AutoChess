@@ -18,6 +18,7 @@ list<Game_Ptr<Chess_Base>> Chess_player::Piece_Board;
 list<Game_Ptr<Chess_Base>> Chess_player::Piece_Enemy_ChessBoard;
 bool Chess_player::Round = true;
 bool Chess_player::PickCheck = false;
+bool Chess_player::CanDeath = false;
 Game_Vector Chess_player::PickPos;
 
 Chess_player::Chess_player() {}
@@ -509,7 +510,7 @@ void Chess_player::Check_StarUP(Game_String _Name, int _Star)
 		{
 			if (iter->PTR->Info.Name == _Name && iter->PTR->Info.Star == _Star)
 			{
-				iter->PTR->Check_Death(true);
+				//iter->PTR->Check_Death(true);
 				iter = Piece_Banch.erase(iter);
 			}
 			else
@@ -521,7 +522,7 @@ void Chess_player::Check_StarUP(Game_String _Name, int _Star)
 		{
 			if (iter->PTR->Info.Name == _Name && iter->PTR->Info.Star == _Star)
 			{
-				iter->PTR->Check_Death(true);
+				//iter->PTR->Check_Death(true);
 				iter = Piece_Board.erase(iter);
 			}
 			else
@@ -574,45 +575,42 @@ void Chess_player::Set_Banch_Sequence()
 void Chess_player::Test()
 {
 	//테스트용 아군 유닛 생성//////////////////////////////////////
-	//{
-	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
-	//	Game_Ptr<WindRanger> TestEnemy = PTR1->CreateCom<WindRanger>();
-	//	TestEnemy->Info.Position_X = 1;
-	//	TestEnemy->Info.Position_Y = 0;
-	//	TestEnemy->Info.Real_X = 1;
-	//	TestEnemy->Info.Real_Y = 0;
-	//	Piece_Board.emplace_back(TestEnemy);
-	//}
-	//{
-	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
-	//	Game_Ptr<WareWolf> TestEnemy = PTR1->CreateCom<WareWolf>();
-	//	TestEnemy->Info.Position_X = 1;
-	//	TestEnemy->Info.Position_Y = 1;
-	//	TestEnemy->Info.Real_X = 1;
-	//	TestEnemy->Info.Real_Y = 1;
-	//	Piece_Board.emplace_back(TestEnemy);
-	//}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<WindRanger> TestEnemy = PTR1->CreateCom<WindRanger>();
+		TestEnemy->Info.Position_X = 1;
+		TestEnemy->Info.Position_Y = 0;
+		TestEnemy->Info.Real_X = 1;
+		TestEnemy->Info.Real_Y = 0;
+		Piece_Board.emplace_back(TestEnemy);
+	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<WareWolf> TestEnemy = PTR1->CreateCom<WareWolf>();
+		TestEnemy->Info.Position_X = 1;
+		TestEnemy->Info.Position_Y = 1;
+		TestEnemy->Info.Real_X = 1;
+		TestEnemy->Info.Real_Y = 1;
+		Piece_Board.emplace_back(TestEnemy);
+	}
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
 		TestEnemy->Info.Position_X = 1;
-		TestEnemy->Info.Position_Y = 4;
+		TestEnemy->Info.Position_Y = 3;
 		TestEnemy->Info.Real_X = 1;
-		TestEnemy->Info.Real_Y = 4;
+		TestEnemy->Info.Real_Y = 3;
 		Piece_Board.emplace_back(TestEnemy);
 	}
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<SoulBreaker> TestEnemy = PTR1->CreateCom<SoulBreaker>();
 		TestEnemy->Info.Position_X = 2;
-		TestEnemy->Info.Position_Y = 6;
+		TestEnemy->Info.Position_Y = 0;
 		TestEnemy->Info.Real_X = 2;
-		TestEnemy->Info.Real_Y = 6;
+		TestEnemy->Info.Real_Y = 0;
 		Piece_Board.emplace_back(TestEnemy);
 	}
-	//Spawn_Unit<SoulBreaker>(2, 6);
-	//Spawn_Unit<SwordMaster>(3, 6);
-	//Spawn_Unit<SwordMaster>(8, 8, Chess_Team::Enemy);
 
 	//테스트용 적 유닛 생성///////////////////////////////////////////////
 	//{
@@ -638,7 +636,7 @@ void Chess_player::Test()
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<Unicorn> TestEnemy = PTR1->CreateCom<Unicorn>();
-		TestEnemy->Info.Position_X = 5;
+		TestEnemy->Info.Position_X = 7;
 		TestEnemy->Info.Position_Y = 7;
 		TestEnemy->Info.Real_X = TestEnemy->Info.Position_X;
 		TestEnemy->Info.Real_Y = TestEnemy->Info.Position_Y;
@@ -687,30 +685,11 @@ void Chess_player::Ui_Switch()
 		}
 	}
 
-	//if (HGAMEINPUT::Down("Test"))
-	//{
-	//	if (Ui_Black->IsUpdate())
-	//	{
-	//		Ui_Black->Off();
-	//		for (size_t i = 0; i < 5; i++)
-	//		{
-	//			if (Store_ColRenderer[i] != nullptr)
-	//			{
-	//				Store_ColRenderer[i]->Off();
-	//			}
-	//		}
-	//	}
-
-	//	else
-	//	{
-	//		Ui_Black->On();
-	//		for (size_t i = 0; i < 5; i++)
-	//		{
-	//			if (Store_ColRenderer[i] != nullptr)
-	//			{
-	//				Store_ColRenderer[i]->On();
-	//			}
-	//		}
-	//	}
-	//}
+	if (HGAMEINPUT::Down("M"))
+	{
+		if (CanDeath)
+			CanDeath = false;
+		else
+			CanDeath = true;
+	}
 }

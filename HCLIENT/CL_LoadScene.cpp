@@ -354,6 +354,40 @@ void CL_LoadScene::Load_Functions()
 		Game_Sprite::Create(L"Unicorn_Circle.png", 4, 4);
 	}
 
+	//캡틴
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+		Dic.Move(L"Unit");
+		Dic.Move(L"Captain");
+
+		auto FileList = Dic.DirAllFile();
+		for (auto& i : FileList)
+		{
+			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+		}
+	}
+
+	//메두사
+	{
+		HGAMEDIRECTORY Dic;
+
+		Dic.MoveParent(L"AutoChess");
+		Dic.Move(L"RES");
+		Dic.Move(L"MESH");
+		Dic.Move(L"Unit");
+		Dic.Move(L"Medusa");
+
+		auto FileList = Dic.DirAllFile();
+		for (auto& i : FileList)
+		{
+			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+		}
+	}
+
 	//Static FBX로드
 	{
 		HGAMEDIRECTORY Dic;
@@ -378,6 +412,7 @@ void CL_LoadScene::Load_Functions()
 		Game_StaticFBX::Load(NewFile);
 	}
 
+	//여기까지 1분
 ////개지랄 생성하면서 애니메이션 로드////
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
@@ -390,6 +425,18 @@ void CL_LoadScene::Load_Functions()
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<Unicorn> TestEnemy = PTR1->CreateCom<Unicorn>();
+	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<WindRanger> TestEnemy = PTR1->CreateCom<WindRanger>();
+	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<WareWolf> TestEnemy = PTR1->CreateCom<WareWolf>();
+	}
+	{
+		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+		Game_Ptr<MiniWolf> TestEnemy = PTR1->CreateCom<MiniWolf>();
 	}
 
 	Mut.lock();

@@ -140,6 +140,8 @@ Game_Vector HGAMEINPUT::MouseDir3DNormal()
 	HGAMEINPUT::CreateKey(L"W", 'W');
 	HGAMEINPUT::CreateKey(L"S", 'S');
 
+	HGAMEINPUT::CreateKey(L"M", 'M');
+
 	HGAMEINPUT::CreateKey(L"Mouse_L", VK_LBUTTON);
 	HGAMEINPUT::CreateKey(L"Mouse_R", VK_RBUTTON);
 }

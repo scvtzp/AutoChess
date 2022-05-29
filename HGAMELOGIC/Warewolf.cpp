@@ -103,67 +103,58 @@ void WareWolf::Init()
 
 		NewRender->ShadowOn();
 	}
+	Make_HpBar();
+
 }
 
-void WareWolf::Update()
-{
-	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
-	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
-	if (!Chess_player::Round)
-		return;	
-	
-	Death_Check();
-	//if (Info.Hp <= 0)
-	//{
-	//	ACTOR()->Death();
-	//	Info.Death = true;
-	//	MeshActor->Death();
-	//}
-
-	if (!Info.Banch)
-	{
-		Move();
-	}
-
-	Skile();
-
-	switch (Info.State)
-	{
-	case Chess_State::Attack_1:
-		NewPtr->ChangeAni(L"Attack01");
-		break;
-	case Chess_State::Attack_2:
-		NewPtr->ChangeAni(L"Attack02");
-		break;
-	case Chess_State::Born:
-		NewPtr->ChangeAni(L"Born");
-		break;
-	case Chess_State::Death:
-		NewPtr->ChangeAni(L"Death");
-		break;
-	case Chess_State::Dizzy:
-		NewPtr->ChangeAni(L"Dizzy");
-		break;
-	case Chess_State::Idle:
-		NewPtr->ChangeAni(L"Idle");
-		break;
-	case Chess_State::Jump:
-		NewPtr->ChangeAni(L"Jump");
-		break;
-	case Chess_State::Run:
-		NewPtr->ChangeAni(L"Run");
-		break;
-	case Chess_State::Skill01:
-		NewPtr->ChangeAni(L"Skill01");
-		break;
-	case Chess_State::Victory:
-		NewPtr->ChangeAni(L"Victory");
-		break;
-	default:
-		NewPtr->ChangeAni(L"Idle");
-		break;
-	}
-}
+//void WareWolf::Update()
+//{
+//	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
+//	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
+//	if (!Chess_player::Round)
+//		return;	
+//	
+//	Base_Update();
+//
+//	Skile();
+//
+//	switch (Info.State)
+//	{
+//	case Chess_State::Attack_1:
+//		NewPtr->ChangeAni(L"Attack01");
+//		break;
+//	case Chess_State::Attack_2:
+//		NewPtr->ChangeAni(L"Attack02");
+//		break;
+//	case Chess_State::Born:
+//		NewPtr->ChangeAni(L"Born");
+//		break;
+//	case Chess_State::Death:
+//		NewPtr->ChangeAni(L"Death");
+//		break;
+//	case Chess_State::Dizzy:
+//		NewPtr->ChangeAni(L"Dizzy");
+//		break;
+//	case Chess_State::Idle:
+//		NewPtr->ChangeAni(L"Idle");
+//		break;
+//	case Chess_State::Jump:
+//		NewPtr->ChangeAni(L"Jump");
+//		break;
+//	case Chess_State::Run:
+//		NewPtr->ChangeAni(L"Run");
+//		break;
+//	case Chess_State::Skill01:
+//		NewPtr->ChangeAni(L"Skill01");
+//		break;
+//	case Chess_State::Victory:
+//		NewPtr->ChangeAni(L"Victory");
+//		break;
+//	default:
+//		NewPtr->ChangeAni(L"Idle");
+//		break;
+//	}
+//}
 
 void WareWolf::Skile()
 {

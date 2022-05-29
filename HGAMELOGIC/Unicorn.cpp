@@ -78,16 +78,16 @@ void Unicorn::Init()
 
 	//스킬 이펙트 미리 로드
 	{
-		Unicorn_Effect_Actor = SCENE()->CreateActor();
-		Unicorn_Effect_Actor->TRANS()->WSCALE({ 1.f, 1.f , 1.f });
-		Unicorn_Effect_Actor->TRANS()->WPOS({ 0.00f, 0.00f , 0.0f });
-		Unicorn_Effect_Actor->TRANS()->LROT({ 90.0f, 0.0f , 0.0f });
+		EffectActor = SCENE()->CreateActor();
+		EffectActor->TRANS()->WSCALE({ 3.f, 3.f , 1.f });
+		EffectActor->TRANS()->WPOS({ 0.00f, 0.00f , 0.0f });
+		EffectActor->TRANS()->LROT({ 90.0f, 0.0f , 0.0f });
 
 		float4 DRAWCOLOR = { 1,1,1,1 };
 		float4 CUTDATA = { 0,0,1,1 };
 
-		Game_Ptr<Game_Renderer> Unicorn_Effect_Renderer = Unicorn_Effect_Actor->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Default);
-		Unicorn_Effect = Unicorn_Effect_Actor->CreateCom<Game_2DAnimation>(Unicorn_Effect_Renderer);
+		Game_Ptr<Game_Renderer> Unicorn_Effect_Renderer = EffectActor->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Default);
+		Unicorn_Effect = EffectActor->CreateCom<Game_2DAnimation>(Unicorn_Effect_Renderer);
 		Unicorn_Effect->CreateAni(L"Unicorn_Effect", L"Unicorn_Circle.png", 0, 15, 0.1f, true);
 		Unicorn_Effect->ChangeAni(L"Unicorn_Effect");
 		Unicorn_Effect_Renderer->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
@@ -95,50 +95,37 @@ void Unicorn::Init()
 		Unicorn_Effect_Renderer->TEXTURE(L"Tex", L"Unicorn_Circle.png");
 		Unicorn_Effect_Renderer->SAMPLER(L"Smp", "LWSMP");
 		Unicorn_Effect->Off();
-		Unicorn_Effect_Actor->Off();
+		EffectActor->Off();
 	}
+	Make_HpBar();
+
 }
 
-void Unicorn::Update()
-{
-	if (MeshActor == nullptr || Unicorn_Effect_Actor == nullptr)
-		return;
-	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.0f , Info.Real_Y });
-	Unicorn_Effect_Actor->TRANS()->LPOS({ Info.Real_X, 0.02f, Info.Real_Y });
-	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
-	if (!Chess_player::Round)
-		return;
-
-	//Death_Check();
-
-	/*if (Info.Hp <= 0)
-	{
-		ACTOR()->Death();
-		Info.Death = true;
-		MeshActor->Death();
-	}*/
-
-	if (Info.Position_Y != -2)
-		Info.Banch = false;
-	else
-		Info.Banch = true;
-
-	if (!Info.Banch)
-	{
-		Move();
-		Base_Update();
-	}
-
-	if (Info.Play_Skill)
-		Skill_Update();
-
-}
+//void Unicorn::Update()
+//{
+//	if (MeshActor == nullptr || EffectActor == nullptr)
+//		return;
+//	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.0f , Info.Real_Y });
+//	EffectActor->TRANS()->LPOS({ Info.Real_X, 0.02f, Info.Real_Y });
+//	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
+//
+//	Base_Update();
+//
+//
+//	if (!Chess_player::Round)
+//		return;
+//
+//
+//	if (Info.Play_Skill)
+//		Skill_Update();
+//
+//}
 
 void Unicorn::Skill_Init()
 {
 	//사실 스킬init에는 이것만
 	Unicorn_Effect->On();
-	Unicorn_Effect_Actor->On();
+	EffectActor->On();
 }
 
 void Unicorn::Skill_Update()
@@ -181,6 +168,6 @@ void Unicorn::Skill_Update()
 		Info.Play_Skill = false;
 		Info.State = Chess_State::Idle;
 		Unicorn_Effect->Off();
-		Unicorn_Effect_Actor->Off();
+		EffectActor->Off();
 	}
 }

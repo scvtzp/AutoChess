@@ -12,7 +12,7 @@ public:
 
 	void Set_Info(int Star);
 	void Init() override;
-	void Update() override;
+	//void Update() override;
 
 	void Skill_Init() override;
 	void Skill_Update() override;

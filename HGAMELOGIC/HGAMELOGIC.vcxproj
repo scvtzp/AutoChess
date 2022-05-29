@@ -197,7 +197,9 @@
     <ClInclude Include="Unit_Header.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="개선점.txt" />
+    <Text Include="개선점.txt">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

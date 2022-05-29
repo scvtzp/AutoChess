@@ -89,32 +89,22 @@ void SoulBreaker::Init()
 		NewPtr->ChangeAni(L"Idle");
 		NewRender->ShadowOn();
 	}
+
+	Make_HpBar();
 }
 
-void SoulBreaker::Update()
-{
-	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
-	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
-	if (!Chess_player::Round)
-		return;	
-
-	//Death_Check();
-	//if (Info.Hp <= 0)
-	//{
-	//	ACTOR()->Death();
-	//	Info.Death = true;
-	//	MeshActor->Death();
-	//}
-
-	if (!Info.Banch)
-	{
-		Move();
-		Base_Update();
-	}
-
-	if (Info.Play_Skill)
-		Skill_Update();
-}
+//void SoulBreaker::Update()
+//{
+//	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
+//	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
+//	if (!Chess_player::Round)
+//		return;	
+//
+//	Base_Update();
+//
+//	if (Info.Play_Skill)
+//		Skill_Update();
+//}
 
 void SoulBreaker::Skill_Init()
 {
@@ -141,17 +131,16 @@ void SoulBreaker::Skill_Update()
 {
 	Info.Mana = 0;
 
-	bool a = NewPtr->Is_End();
-	int b = NewPtr->Get_EndNum();
-	int c = NewPtr->Get_Num();
-
-	wcout << L"소울 브레이커";
-	wcout << b << L" " << c << L" ";
-	if (a)
-		wcout << L"true";
-	else
-		wcout << L"false";
-	wcout << endl;
+	//bool a = NewPtr->Is_End();
+	//int b = NewPtr->Get_EndNum();
+	//int c = NewPtr->Get_Num();
+	//wcout << L"소울 브레이커";
+	//wcout << b << L" " << c << L" ";
+	//if (a)
+	//	wcout << L"true";
+	//else
+	//	wcout << L"false";
+	//wcout << endl;
 
 	if (Info.State == Chess_State::Skill01 && NewPtr->Is_End())
 	{

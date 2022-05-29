@@ -69,12 +69,14 @@ private:
 	void Spawn_Unit(int _X, int _Y, Chess_Team _Team = Chess_Team::Ally); //_Team 0이라면 아군 1이라면 적군
 
 
+
 public:
 	static ChessPiece_Supply ChessPiece_Supply; //공급처
 	static list<Game_Ptr<Chess_Base>> Piece_Board; //내 보드 유닛 목록 (토큰 포함)
 	static list<Game_Ptr<Chess_Base>> Piece_Enemy_ChessBoard; //상대방 보드유닛 목록 (토큰 포함)
 
 	static bool Round;
+	static bool CanDeath;//유닛들 죽게할것인가?
 
 	void Init() override;
 	void Update() override;

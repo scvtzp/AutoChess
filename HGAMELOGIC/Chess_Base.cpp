@@ -674,23 +674,57 @@ void Chess_Base::Set_Rot(int _x, int _y)
 
 }
 
+void Chess_Base::Update()
+{
+	if (HP_Bar == nullptr) //init을 안들어갔다 즉, 로딩씬일때
+		return;
+
+	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
+	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
+	
+	if(EffectActor != nullptr) //이펙트엑터는 없는애도 있음.
+		EffectActor->TRANS()->LPOS({ Info.Real_X, 0.02f, Info.Real_Y });
+
+	Death_Check();
+	Set_Ani();
+
+	float Hp_Scale = Info.Hp / Info.MaxHp * 0.8f;
+	HP_Bar->TRANS()->LSCALE({ Hp_Scale , 0.15f, 1.f });
+
+	IsBanch();
+
+	//이동 (밴치에 있으면 패스)
+	if (!Info.Banch)
+	{
+		HPBar_Act->On();
+		Move(); //놀랍게도 move가 이동 이외에 상태판별포함이라 playskill도 바꿔줌.
+		HP_Bar->TRANS()->LPOS({ Info.Real_X - (0.8f - Hp_Scale) / 2, 1.f, Info.Real_Y });
+		HP_BlackBar->TRANS()->LPOS({ Info.Real_X, 1.f, Info.Real_Y });
+	}
+	else
+	{
+		HPBar_Act->Off();
+	}
+
+	if (Info.Play_Skill)
+		Skill_Update(); //init은 스킬상태로 변경해줄때 MOve에서 실행시켜줌.
+}
+
 void Chess_Base::IsBanch()
 {
 	if (Info.Position_Y != -2)
-		Info.Banch = false;
-	else
-		Info.Banch = true;
-}
-
-void Chess_Base::Check_Death(bool Check)
-{
-	if (Info.Hp <= 0 || Check)
 	{
-		ACTOR()->Death();
-		Info.Death = true;
-		HP_Bar->Death();
-		HP_BlackBar->Death();
-		//MeshActor->Death();
+		HP_Bar->On();
+		HP_BlackBar->On();
+
+		Info.Banch = false;
+	}
+	else
+	{
+		HP_Bar->Off();
+		HP_BlackBar->Off();
+
+		Info.Banch = true;
 	}
 }
 
@@ -698,10 +732,35 @@ void Chess_Base::Death_Check()
 {
 	if (Info.Hp <= 0)
 	{
-		MeshActor->Death();
-		ACTOR()->Death();
-		Info.Death = true;
+		if (Chess_player::CanDeath)
+		{
+			if(MeshActor != nullptr)
+				MeshActor->Death();
+			if (EffectActor != nullptr)
+				EffectActor->Death();
+			if(HPBar_Act != nullptr)
+				HPBar_Act->Death();
+			ACTOR()->Death();
+			Info.Death = true;
+
+			if (Info.MyUnit)
+			{
+				Chess_player::Piece_Board.remove(this);
+			}
+			else
+			{
+				Chess_player::Piece_Enemy_ChessBoard.remove(this);
+			}
+		}
+		else
+		{
+			Info.Hp = Info.MaxHp; //풀피로 회복 (테스트용)
+		}
 	}
+}
+
+void Chess_Base::Skill()
+{
 }
 
 void Chess_Base::Skill_Init()
@@ -710,11 +769,6 @@ void Chess_Base::Skill_Init()
 
 void Chess_Base::Skill_Update()
 {
-}
-
-void Chess_Base::Base_Update()
-{
-	Set_Ani();
 }
 
 void Chess_Base::Set_Ani()
@@ -757,5 +811,42 @@ void Chess_Base::Set_Ani()
 	default:
 		NewPtr->ChangeAni(L"Idle");
 		break;
+	}
+}
+
+void Chess_Base::Make_HpBar()
+{
+	float4 CUTDATA = { 0,0,1,1 };
+	float4 DRAWCOLOR = { 1,1,1,0.5f }; //50%반투명
+	Game_Vector Scale = { 0.7f, 0.12f, 1.f };
+
+	HPBar_Act = SCENE()->CreateActor();
+
+	//빨강/초록 체력바 생성
+	{
+		//Game_Ptr<Game_Actor> Act = SCENE()->CreateActor();
+		HP_Bar = HPBar_Act->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Default);
+		HP_Bar->TRANS()->LSCALE(Scale);
+		HP_Bar->TRANS()->LROT({ 90.f, 0.f, 0.f });
+
+		HP_Bar->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
+		HP_Bar->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
+		if (Info.MyUnit)
+			HP_Bar->TEXTURE(L"Tex", L"Green.png");
+		else
+			HP_Bar->TEXTURE(L"Tex", L"Red.png");
+		HP_Bar->SAMPLER(L"Smp", "LWSMP");
+	}
+	//체력바 검정 뒷배경 생성
+	{
+		//Game_Ptr<Game_Actor> Act1 = SCENE()->CreateActor();
+		HP_BlackBar = HPBar_Act->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Default);
+		HP_BlackBar->TRANS()->LSCALE(Scale);
+		HP_BlackBar->TRANS()->LROT({ 90.f, 0.f, 0.f });
+
+		HP_BlackBar->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
+		HP_BlackBar->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
+		HP_BlackBar->TEXTURE(L"Tex", L"Black.png");
+		HP_BlackBar->SAMPLER(L"Smp", "LWSMP");
 	}
 }

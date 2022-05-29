@@ -10,7 +10,7 @@ public:
 	~WindRanger();
 
 	void Init() override;
-	void Update() override;
+	//void Update() override;
 
 	void Set_Info(int Star); //영어로 생성자
 
@@ -22,6 +22,7 @@ public:
 
 	void Skill_Init() override;
 	void Skill_Update() override;
+
 
 	//출력용
 	//Game_Ptr<Game_Actor> MeshActor;

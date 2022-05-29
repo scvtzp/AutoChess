@@ -155,15 +155,14 @@ public:
 	ChessPiece_Info Info;
 	Game_String Get_Name() { return Info.Name; }
 
-	//출력
-	Game_Ptr<Game_Actor> MeshActor;
-
 	//체력바
+	Game_Ptr<Game_Actor> HPBar_Act;
 	Game_Ptr<Game_Renderer> HP_Bar;
 	Game_Ptr<Game_Renderer> HP_BlackBar;
 
 	//출력용
-	//Game_Ptr<Game_Actor> MeshActor;
+	Game_Ptr<Game_Actor> MeshActor;
+	Game_Ptr<Game_Actor> EffectActor;
 	Game_Ptr<Game_BoneAnimationCom_Ex> NewPtr;
 
 	void AStar();
@@ -188,14 +187,19 @@ public:
 
 	void Set_Rot(int _x, int _y);
 
+	//업데이트 자식들꺼 다 빼고 얘로 통일. 서로 다를 이유가 없음.
+	void Update() override;
+
 	//자식들용
 	void IsBanch();
-	void Check_Death(bool Check = false);
 	void Death_Check();
+	virtual void Skill();
 	virtual void Skill_Init();
 	virtual void Skill_Update();
 
 	//BaseUpdate 내부
-	void Base_Update();
 	void Set_Ani();
+
+
+	void Make_HpBar();
 };

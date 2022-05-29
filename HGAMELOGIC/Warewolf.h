@@ -9,7 +9,7 @@ public:
 
 	void Set_Info(int Star);
 	void Init() override;
-	void Update() override;
+	//void Update() override;
 	void Skile();
 
 	bool Form_change = false; //true = º¯½Å

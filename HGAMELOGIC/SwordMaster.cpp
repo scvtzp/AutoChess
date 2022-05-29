@@ -89,38 +89,40 @@ void SwordMaster::Init()
 		NewPtr->ChangeAni(L"Idle");
 		NewRender->ShadowOn();
 	}
+	Make_HpBar();
+
 }
 
-void SwordMaster::Update()
-{
-	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
-	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
-	if (!Chess_player::Round)
-		return;
-
-	//Death_Check();
-	
-	/*if (Info.Hp <= 0)
-	{
-		ACTOR()->Death();
-		Info.Death = true;
-		MeshActor->Death();
-	}*/
-
-	if (Info.Position_Y != -2)
-		Info.Banch = false;
-	else
-		Info.Banch = true;
-
-	if (!Info.Banch)
-	{
-		Move();
-		Base_Update();
-	}
-
-	if(Info.Play_Skill)
-		Skill_Update();
-}
+//void SwordMaster::Update()
+//{
+//	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
+//	MeshActor->TRANS()->LROT({ -90.f , TRANS()->LROT().y,  TRANS()->LROT().z });
+//	if (!Chess_player::Round)
+//		return;
+//
+//	//Death_Check();
+//	
+//	/*if (Info.Hp <= 0)
+//	{
+//		ACTOR()->Death();
+//		Info.Death = true;
+//		MeshActor->Death();
+//	}*/
+//
+//	if (Info.Position_Y != -2)
+//		Info.Banch = false;
+//	else
+//		Info.Banch = true;
+//
+//	if (!Info.Banch)
+//	{
+//		Move();
+//		Base_Update();
+//	}
+//
+//	if(Info.Play_Skill)
+//		Skill_Update();
+//}
 
 void SwordMaster::Skill_Init()
 {
