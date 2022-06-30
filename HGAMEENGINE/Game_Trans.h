@@ -6,10 +6,12 @@ enum class COLTYPE
 	SPHERE2D, // API의 서클이다.
 	AABB2D,
 	OBB2D,
-	SPHERE3D,
-	AABB3D,
+
+	SPHERE3D, //구
+	AABB3D, //	
 	OBB3D,
 	RAY3D,
+
 	MAX,
 };
 
@@ -43,6 +45,7 @@ public:
 	static bool __stdcall OBB2DCOLOBB2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 	static bool __stdcall OBB2DCOLAABB2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 	static bool __stdcall OBB2DCOLSPHERE2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall SPHERE3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 
 	static bool (__stdcall *COLFUNC[(int)COLTYPE::MAX][(int)COLTYPE::MAX])(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 
