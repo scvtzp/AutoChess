@@ -49,6 +49,7 @@ bool Game_Trans::OBB2DCOLSPHERE2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Tran
 }
 
 //3D
+//구 충돌
 bool Game_Trans::SPHERE3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
 {
 	//두 점 사이의 거리 구함.
@@ -60,3 +61,24 @@ bool Game_Trans::SPHERE3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game
 	//반지름 구하기 위해 Scale/2 씩 더해줌
 	return distance < (_Left->WSCALE().x / 2) + (_Right->WSCALE().x / 2);
 }
+
+bool Game_Trans::AABB3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+
+
+	return true;
+}
+
+/*
+BOOL CheckCubeIntersection( D3DXVECTOR3* vMin1, D3DXVECTOR3* vMax1,
+							 D3DXVECTOR3* vMin2, D3DXVECTOR3* vMax2 )
+
+{
+		if( vMin1->x <= vMax2->x && vMax1->x >= vMin2->x &&
+		   vMin1->y <= vMax2->y && vMax1->y >= vMin2->y &&
+		   vMin1->z <= vMax2->z && vMax1->z >= vMin2->z )
+		   return TRUE;
+		return FALSE;
+}
+
+*/
