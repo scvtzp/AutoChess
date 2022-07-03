@@ -64,21 +64,17 @@ bool Game_Trans::SPHERE3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game
 
 bool Game_Trans::AABB3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
 {
+	Game_Vector Min1, Min2, Max1, Max2;
+	Min1 = { _Left->WPOS().x - _Left->WSCALE().x/2,  _Left->WPOS().y - _Left->WSCALE().y / 2, _Left->WPOS().z - _Left->WSCALE().z / 2 };
+	Max1 = { _Left->WPOS().x + _Left->WSCALE().x/2,  _Left->WPOS().y + _Left->WSCALE().y / 2, _Left->WPOS().z + _Left->WSCALE().z / 2 };
+	Min2 = { _Right->WPOS().x - _Right->WSCALE().x/2,  _Right->WPOS().y - _Right->WSCALE().y / 2, _Right->WPOS().z - _Right->WSCALE().z / 2 };
+	Max2 = { _Right->WPOS().x + _Right->WSCALE().x/2,  _Right->WPOS().y + _Right->WSCALE().y / 2, _Right->WPOS().z + _Right->WSCALE().z / 2 };
 
 
-	return true;
+	if (Min1.x <= Max2.x && Max1.x >= Min2.x &&
+		Min1.y <= Max2.y && Max1.y >= Min2.y &&
+		Min1.z <= Max2.z && Max1.z >= Min2.z)
+		return true;
+
+	return false;
 }
-
-/*
-BOOL CheckCubeIntersection( D3DXVECTOR3* vMin1, D3DXVECTOR3* vMax1,
-							 D3DXVECTOR3* vMin2, D3DXVECTOR3* vMax2 )
-
-{
-		if( vMin1->x <= vMax2->x && vMax1->x >= vMin2->x &&
-		   vMin1->y <= vMax2->y && vMax1->y >= vMin2->y &&
-		   vMin1->z <= vMax2->z && vMax1->z >= vMin2->z )
-		   return TRUE;
-		return FALSE;
-}
-
-*/
