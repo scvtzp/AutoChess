@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="CL_LoadScene.cpp" />
     <ClCompile Include="CL_LobbyScene.cpp" />
+    <ClCompile Include="CL_StageScene.cpp" />
     <ClCompile Include="CL_TestScene.cpp" />
     <ClCompile Include="MainFile.cpp" />
   </ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="CL_LoadScene.h" />
     <ClInclude Include="CL_LobbyScene.h" />
     <ClInclude Include="CL_Scene.h" />
+    <ClInclude Include="CL_StageScene.h" />
     <ClInclude Include="CL_TestScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

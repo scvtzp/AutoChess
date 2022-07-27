@@ -45,8 +45,21 @@ public:
 	static bool __stdcall OBB2DCOLOBB2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 	static bool __stdcall OBB2DCOLAABB2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 	static bool __stdcall OBB2DCOLSPHERE2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+
+	static bool __stdcall SPHERE3D_COL_OBB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall SPHERE3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 	static bool __stdcall SPHERE3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall SPHERE3D_COL_RAY3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+
+	static bool __stdcall AABB3D_COL_OBB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 	static bool __stdcall AABB3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall AABB3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall AABB3D_COL_RAY3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+
+	static bool __stdcall OBB3D_COL_OBB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall OBB3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall OBB3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
+	static bool __stdcall OBB3D_COL_RAY3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 
 	static bool (__stdcall *COLFUNC[(int)COLTYPE::MAX][(int)COLTYPE::MAX])(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right);
 

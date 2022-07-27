@@ -12,6 +12,7 @@
 #include "CL_TestScene.h"
 #include "CL_LobbyScene.h"
 #include "CL_LoadScene.h"
+#include "CL_StageScene.h"
 
 #pragma comment(lib, "HGAMEBASE.lib")
 #pragma comment(lib, "HGAMEENGINE.lib")
@@ -43,12 +44,13 @@ int __stdcall Start()
 	}
 
 	//HGAMESCENE::Create<HCLIENTSCENECOM>(L"TEST");
-	HGAMESCENE::Create<CL_LobbyScene>(L"LobbyScene");
-	HGAMESCENE::Create<CL_TestScene>(L"TestScene"); //메인 씬
-	HGAMESCENE::Create<CL_LoadScene>(L"LoadScene");
-	HGAMESCENE::ChangeScene(L"LoadScene");
+	HGAMESCENE::Create<CL_LoadScene>(L"LoadScene"); //로딩씬
+	HGAMESCENE::Create<CL_LobbyScene>(L"LobbyScene"); //로비 화면
+	HGAMESCENE::Create<CL_StageScene>(L"StageScene"); //메인 전투 씬
+	HGAMESCENE::Create<CL_TestScene>(L"TestScene"); //충돌처리 등 각종 실험용 씬
+	HGAMESCENE::ChangeScene(L"TestScene");
 
-	return 1;
+	return 1; 
 }
 
 // 데드타임

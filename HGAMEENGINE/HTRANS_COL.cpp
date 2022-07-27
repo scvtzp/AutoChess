@@ -48,8 +48,21 @@ bool Game_Trans::OBB2DCOLSPHERE2D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Tran
 	return _Left->OBB2D().Intersects(_Right->SPHERE2D());;
 }
 
-//3D
-//구 충돌
+///////////3D/////////////
+/////구/////
+//구-obb
+bool Game_Trans::SPHERE3D_COL_OBB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+//구-박스 충돌
+
+bool Game_Trans::SPHERE3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+
+//구-구 충돌
 bool Game_Trans::SPHERE3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
 {
 	//두 점 사이의 거리 구함.
@@ -62,6 +75,20 @@ bool Game_Trans::SPHERE3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game
 	return distance < (_Left->WSCALE().x / 2) + (_Right->WSCALE().x / 2);
 }
 
+//구-ray 충돌
+bool Game_Trans::SPHERE3D_COL_RAY3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+
+/////////AABB///////////
+//박스-OBB 충돌
+bool Game_Trans::AABB3D_COL_OBB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+
+//박스-박스 충돌
 bool Game_Trans::AABB3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
 {
 	Game_Vector Min1, Min2, Max1, Max2;
@@ -77,4 +104,41 @@ bool Game_Trans::AABB3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Tra
 		return true;
 
 	return false;
+}
+
+//박스-구 충돌
+bool Game_Trans::AABB3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+
+//박스-ray 충돌
+bool Game_Trans::AABB3D_COL_RAY3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+
+///////OBB////////
+//OBB-OBB 충돌
+bool Game_Trans::AABB3D_COL_OBB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+
+//OBB-박스 충돌
+bool Game_Trans::AABB3D_COL_AABB3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return false;
+}
+
+//OBB-구 충돌
+bool Game_Trans::AABB3D_COL_SPHERE3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
+}
+
+//OBB-ray 충돌
+bool Game_Trans::AABB3D_COL_RAY3D(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right)
+{
+	return true;
 }

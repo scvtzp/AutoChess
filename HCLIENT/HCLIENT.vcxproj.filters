@@ -11,6 +11,9 @@
     <ClCompile Include="CL_LoadScene.cpp">
       <Filter>SCENE\LoadScene</Filter>
     </ClCompile>
+    <ClCompile Include="CL_StageScene.cpp">
+      <Filter>SCENE\CL_StageScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SCENE">
@@ -25,6 +28,9 @@
     <Filter Include="SCENE\LoadScene">
       <UniqueIdentifier>{200d1af0-0407-466e-938f-9f9c0254d7d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SCENE\CL_StageScene">
+      <UniqueIdentifier>{6ee96ad3-f411-40ea-9ec9-1462fc4b637b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CL_TestScene.h">
@@ -38,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="CL_LoadScene.h">
       <Filter>SCENE\LoadScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CL_StageScene.h">
+      <Filter>SCENE\CL_StageScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
