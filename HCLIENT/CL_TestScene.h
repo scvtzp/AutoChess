@@ -47,6 +47,7 @@ public:
 public:
 	void SceneChangeStart() override;
 	void SceneChangeEnd() override;
+	void ColTest(Game_Collision* _This, Game_Collision* _Other);
 	void Init() override;
 	void Update() override;
 

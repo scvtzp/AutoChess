@@ -8,8 +8,6 @@
 CL_TestScene* CL_TestScene::Inst;
 HBoneAnimationCom* CL_TestScene::AniCom = nullptr;
 
-Game_Ptr<HCAM> CamPtr;
-
 CL_TestScene::CL_TestScene()
 {
 	Inst = this;
@@ -21,12 +19,9 @@ CL_TestScene::~CL_TestScene()
 
 void CL_TestScene::SceneChangeStart()
 {
-	//SCENE()->ColLink((int)Col_Name::Unit, (int)Col_Name::End);
-	SCENE()->ColLink((int)Col_Name::Shop_Unit, (int)Col_Name::Mouse);
-	SCENE()->ColLink((int)Col_Name::Button, (int)Col_Name::Mouse);
-	SCENE()->ColLink((int)Col_Name::Board, (int)Col_Name::Mouse);
+	SCENE()->ColLink((int)Col_Name::Unit, (int)Col_Name::Unit);
 
-	//Load_Functions();
+	Load_Functions();
 
 	//기본 캠 생성
 	{
@@ -70,23 +65,33 @@ void CL_TestScene::SceneChangeStart()
 		NewActor->TRANS()->LSCALE({ 1000.0F, 1000.0F, 1000.0F });
 	}
 
-	////공
-	//{
-	//	float4 Test = float4(0.5f, 0.5f, 0.5f, 0.9f);
-	//	Game_Ptr<Game_Actor> NewActor = SCENE()->CreateActor();
-	//	Game_Ptr<Game_Renderer> NewRender = NewActor->CreateCom<Game_Renderer>(L"SPHERE", L"Defferd");
-	//	NewActor->TRANS()->LPOS({ -2.0F, 2.0F, 2.0F });
-	//	NewRender->ShadowOn();
-	//}
-	////공+범프
-	//{
-	//	Game_Ptr<Game_Actor> NewActor = SCENE()->CreateActor();
-	//	Game_Ptr<Game_Renderer> NewRender = NewActor->CreateCom<Game_Renderer>(L"SPHERE", L"Foward");
-	//	NewRender->GetRenderPlayer(0)->RenderOption.IsDifTexture = false;
-	//	NewRender->GetRenderPlayer(0)->RenderOption.IsNormalTexture = true;
-	//	NewRender->TEXTURE(L"NormalTexture", L"BumpTest.png");
-	//	NewActor->TRANS()->LPOS({ 2.0F, 2.0F, 2.0F });
-	//}
+	//공
+	{
+		PlayerActor = SCENE()->CreateActor();
+		PlayerActor->TRANS()->LPOS({ -2.0F, 2.0F, 2.0F });
+
+		Game_Ptr<Game_Renderer> NewRender = PlayerActor->CreateCom<Game_Renderer>(L"SPHERE", L"Defferd");
+		NewRender->ShadowOn();
+		
+		Game_Ptr<Game_Collision> Col = PlayerActor->CreateCom<Game_Collision>((int)Col_Name::Unit);
+		Col->ColType(COLTYPE::SPHERE3D);
+		Col->PushStayFunc(this, &CL_TestScene::ColTest);
+	}
+
+	//공+범프
+	{
+		Game_Ptr<Game_Actor> NewActor = SCENE()->CreateActor();
+		NewActor->TRANS()->LPOS({ 2.0F, 2.0F, 2.0F });
+		
+		Game_Ptr<Game_Renderer> NewRender = NewActor->CreateCom<Game_Renderer>(L"SPHERE", L"Foward");
+		NewRender->GetRenderPlayer(0)->RenderOption.IsDifTexture = false;
+		NewRender->GetRenderPlayer(0)->RenderOption.IsNormalTexture = true;
+		NewRender->TEXTURE(L"NormalTexture", L"BumpTest.png");
+
+		Game_Ptr<Game_Collision> Col = NewActor->CreateCom<Game_Collision>((int)Col_Name::Unit);
+		Col->ColType(COLTYPE::SPHERE3D);
+
+	}
 
 	//맵
 	{
@@ -148,8 +153,8 @@ void CL_TestScene::SceneChangeStart()
 
 	//플레이어 생성
 	{
-		Game_Ptr<Game_Actor> PTR = SCENE()->CreateActor();
-		PTR->CreateCom<Chess_player>();
+		//Game_Ptr<Game_Actor> PTR = SCENE()->CreateActor();
+		//PTR->CreateCom<Chess_player>();
 	}
 
 	//빛
@@ -169,6 +174,12 @@ void CL_TestScene::SceneChangeEnd()
 {
 	SCENE()->ActorClear();
 }
+
+void CL_TestScene::ColTest(Game_Collision* _This, Game_Collision* _Other)
+{
+	int a;
+}
+
 void CL_TestScene::Init()
 {
 
@@ -176,19 +187,6 @@ void CL_TestScene::Init()
 
 void CL_TestScene::Update()
 {
-	StartTime -= Game_Time::DeltaTime();
-
-	if (StartTime <= 0.0f && Start == false)
-	{
-		HGAMESOUND::Play(L"BattleBGM", L"bgm_Battle_1.wav");
-		Start = true;
-	}
-
-	if (!HGAMESOUND::IsPlay(L"BattleBGM"))
-	{
-		HGAMESOUND::Play(L"BattleBGM", L"bgm_Battle_1.wav");
-	}
-
 	PlayerUpdate();
 
 	// H3DDEBUG::DrawDebugText(L"AAAA");
@@ -314,24 +312,12 @@ void CL_TestScene::Load_Functions()
 		Game_Sprite::Create(L"WindRanger.png", 8, 7);
 	}
 
-	//FBX로드
-	//소드마스터
-	//윈드레인저
+	//FBX로드  
+	//test에서는 주석처리하고 닫음.
+	/*
 	{
-		HGAMEDIRECTORY Dic;
-
-		Dic.MoveParent(L"AutoChess");
-		Dic.Move(L"RES");
-		Dic.Move(L"MESH");
-		Dic.Move(L"Unit");
-
-		auto FileList = Dic.DirAllFile();
-		Game_Fbx_Ex::Load(Dic.PlusFileName(L"SwordMasterS1.FBX"));
-		Game_Fbx_Ex::Load(Dic.PlusFileName(L"WindRangerS1.FBX"));
-	}
-
-	//웨어울프
-	{
+		//소드마스터
+		//윈드레인저
 		{
 			HGAMEDIRECTORY Dic;
 
@@ -339,18 +325,76 @@ void CL_TestScene::Load_Functions()
 			Dic.Move(L"RES");
 			Dic.Move(L"MESH");
 			Dic.Move(L"Unit");
-			Dic.Move(L"WareWolf");
 
 			auto FileList = Dic.DirAllFile();
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1.FBX"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Run.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Idle.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Born.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Death.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Dizzy.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Skill01.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Victory.fbx"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SwordMasterS1.FBX"));
+			Game_Fbx_Ex::Load(Dic.PlusFileName(L"WindRangerS1.FBX"));
 		}
+
+		//웨어울프
+		{
+			{
+				HGAMEDIRECTORY Dic;
+
+				Dic.MoveParent(L"AutoChess");
+				Dic.Move(L"RES");
+				Dic.Move(L"MESH");
+				Dic.Move(L"Unit");
+				Dic.Move(L"WareWolf");
+
+				auto FileList = Dic.DirAllFile();
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1.FBX"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Run.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Idle.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Born.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Death.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Dizzy.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Skill01.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"WareWolfS1_Victory.fbx"));
+			}
+			{
+				HGAMEDIRECTORY Dic;
+
+				Dic.MoveParent(L"AutoChess");
+				Dic.Move(L"RES");
+				Dic.Move(L"MESH");
+				Dic.Move(L"Unit");
+				Dic.Move(L"WareWolf");
+				Dic.Move(L"S");
+
+				auto FileList = Dic.DirAllFile();
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Attack01.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Attack02.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Born.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Death.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Dizzy.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Idle.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Run.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Victory.fbx"));
+			}
+			{
+				HGAMEDIRECTORY Dic;
+
+				Dic.MoveParent(L"AutoChess");
+				Dic.Move(L"RES");
+				Dic.Move(L"MESH");
+				Dic.Move(L"Unit");
+				Dic.Move(L"WareWolf");
+				Dic.Move(L"C");
+
+				auto FileList = Dic.DirAllFile();
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack01.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack02.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Born.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Death.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Dizzy.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Idle.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Run.fbx"));
+				Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Victory.fbx"));
+			}
+		}
+
+		//(암살고블린) 소울브레이커
 		{
 			HGAMEDIRECTORY Dic;
 
@@ -358,19 +402,18 @@ void CL_TestScene::Load_Functions()
 			Dic.Move(L"RES");
 			Dic.Move(L"MESH");
 			Dic.Move(L"Unit");
-			Dic.Move(L"WareWolf");
-			Dic.Move(L"S");
+			Dic.Move(L"SoulBreaker");
 
 			auto FileList = Dic.DirAllFile();
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Attack01.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Attack02.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Born.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Death.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Dizzy.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Idle.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Run.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Victory.fbx"));
+			for (auto& i : FileList)
+			{
+				Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+			}
+			//Game_Fbx_Ex::Load(Dic.PlusFileName(L"SwordMasterS1.FBX"));
+			//Game_Fbx_Ex::Load(Dic.PlusFileName(L"WindRangerS1.FBX"));
 		}
+
+		//유니콘
 		{
 			HGAMEDIRECTORY Dic;
 
@@ -378,72 +421,33 @@ void CL_TestScene::Load_Functions()
 			Dic.Move(L"RES");
 			Dic.Move(L"MESH");
 			Dic.Move(L"Unit");
-			Dic.Move(L"WareWolf");
-			Dic.Move(L"C");
+			Dic.Move(L"Unicorn");
 
 			auto FileList = Dic.DirAllFile();
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack01.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack02.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Born.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Death.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Dizzy.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Idle.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Run.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Victory.fbx"));
+			for (auto& i : FileList)
+			{
+				Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+			}
 		}
-	}
-
-	//(암살고블린) 소울브레이커
-	{
-		HGAMEDIRECTORY Dic;
-
-		Dic.MoveParent(L"AutoChess");
-		Dic.Move(L"RES");
-		Dic.Move(L"MESH");
-		Dic.Move(L"Unit");
-		Dic.Move(L"SoulBreaker");
-
-		auto FileList = Dic.DirAllFile();
-		for (auto& i : FileList)
+		//유니콘 이펙트
 		{
-			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
-		}
-		//Game_Fbx_Ex::Load(Dic.PlusFileName(L"SwordMasterS1.FBX"));
-		//Game_Fbx_Ex::Load(Dic.PlusFileName(L"WindRangerS1.FBX"));
-	}
+			HGAMEDIRECTORY Dic;
 
-	//유니콘
-	{
-		HGAMEDIRECTORY Dic;
+			Dic.MoveParent(L"AutoChess");
+			Dic.Move(L"RES");
+			Dic.Move(L"TEXTURE");
+			Dic.Move(L"Effect");
+			auto FileList = Dic.DirAllFile();
+			for (auto& _File : FileList)
+			{
+				HTEXTURE::Load(_File);
+			}
 
-		Dic.MoveParent(L"AutoChess");
-		Dic.Move(L"RES");
-		Dic.Move(L"MESH");
-		Dic.Move(L"Unit");
-		Dic.Move(L"Unicorn");
-
-		auto FileList = Dic.DirAllFile();
-		for (auto& i : FileList)
-		{
-			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
-		}
-	}
-	//유니콘 이펙트
-	{
-		HGAMEDIRECTORY Dic;
-
-		Dic.MoveParent(L"AutoChess");
-		Dic.Move(L"RES");
-		Dic.Move(L"TEXTURE");
-		Dic.Move(L"Effect");
-		auto FileList = Dic.DirAllFile();
-		for (auto& _File : FileList)
-		{
-			HTEXTURE::Load(_File);
+			Game_Sprite::Create(L"Unicorn_Circle.png", 4, 4);
 		}
 
-		Game_Sprite::Create(L"Unicorn_Circle.png", 4, 4);
 	}
+	*/
 
 	//Static FBX로드
 	{
@@ -472,29 +476,29 @@ void CL_TestScene::Load_Functions()
 
 void CL_TestScene::PlayerUpdate()
 {
-	//if (HGAMEINPUT::Press(L"L"))
-	//{
-	//	PlayerActor->TRANS()->LROTADDY(360.0f * Game_Time::DeltaTime());
+	if (HGAMEINPUT::Press(L"L"))
+	{
+		PlayerActor->TRANS()->LROTADDY(360.0f * Game_Time::DeltaTime());
 
-	//	// PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WLEFT());
-	//}
+		// PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WLEFT());
+	}
 
-	//if (HGAMEINPUT::Press(L"R"))
-	//{
-	//	PlayerActor->TRANS()->LROTADDY(-360.0f * Game_Time::DeltaTime());
-	//	// PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WRIGHT());
-	//}
+	if (HGAMEINPUT::Press(L"R"))
+	{
+		PlayerActor->TRANS()->LROTADDY(-360.0f * Game_Time::DeltaTime());
+		// PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WRIGHT());
+	}
 
-	//if (HGAMEINPUT::Press(L"F"))
-	//{
-	//	PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WFORWARD() * Game_Time::DeltaTime(20.0F));
-	//}
+	if (HGAMEINPUT::Press(L"F"))
+	{
+		PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WFORWARD() * Game_Time::DeltaTime(20.0F));
+	}
 
-	//if (HGAMEINPUT::Press(L"B"))
-	//{
+	if (HGAMEINPUT::Press(L"B"))
+	{
 
-	//	PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WBACK() * Game_Time::DeltaTime(20.0F));
-	//}
+		PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WBACK() * Game_Time::DeltaTime(20.0F));
+	}
 
 	Game_3D_Debug::DrawDebugText(L"캠 Lpos %f %f %f", CamActor->TRANS()->LPOS().x, CamActor->TRANS()->LPOS().y, CamActor->TRANS()->LPOS().z);
 	Game_3D_Debug::DrawDebugText(L"캠 Lrot %f %f %f", CamActor->TRANS()->LROT().x, CamActor->TRANS()->LROT().y, CamActor->TRANS()->LROT().z);
