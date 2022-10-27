@@ -137,7 +137,7 @@ Game_Vector HCAM::CamOrthMousePos2D()
 	return ScreenMousePos;
 }
 
-Game_Vector HCAM::OrthWorldMousePos2D() 
+Game_Vector HCAM::OrthWorldMousePos2D()  
 {
 	return TRANS()->WPOS2D() + CamOrthMousePos2D();
 }
@@ -155,7 +155,7 @@ Game_Ptr<Game_RenderTarget> HCAM::CamTarget()
 }
 
 Game_Ptr<Game_RenderTarget> HCAM::ForwardCamTarget() 
-{
+{ 
 	return m_ForwardCamTarget;
 }
 Game_Ptr<Game_RenderTarget> HCAM::DefferdCamTarget() 

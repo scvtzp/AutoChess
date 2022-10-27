@@ -6,9 +6,9 @@
 
 #include <HGAMEDEBUG.h>
 
-bool (*Game_Trans::COLFUNC[(int)COLTYPE::MAX][(int)COLTYPE::MAX])(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right) = { nullptr,};
-
 Game_Trans::Game_ColStart Game_Trans::Starter;
+
+bool (*Game_Trans::COLFUNC[(int)COLTYPE::MAX][(int)COLTYPE::MAX])(Game_Ptr<Game_Trans> _Left, Game_Ptr<Game_Trans> _Right) = { nullptr,};
 
 Game_Trans::Game_ColStart::Game_ColStart() 
 {
@@ -28,6 +28,11 @@ Game_Trans::Game_ColStart::Game_ColStart()
 	Game_Trans::COLFUNC[(int)COLTYPE::SPHERE3D][(int)COLTYPE::SPHERE3D] = SPHERE3D_COL_SPHERE3D;
 	Game_Trans::COLFUNC[(int)COLTYPE::SPHERE3D][(int)COLTYPE::OBB3D] = SPHERE3D_COL_OBB3D;
 	Game_Trans::COLFUNC[(int)COLTYPE::SPHERE3D][(int)COLTYPE::RAY3D] = SPHERE3D_COL_RAY3D;
+
+	Game_Trans::COLFUNC[(int)COLTYPE::RAY3D][(int)COLTYPE::AABB3D] = RAY3D_COL_AABB3D;
+	Game_Trans::COLFUNC[(int)COLTYPE::RAY3D][(int)COLTYPE::SPHERE3D] = RAY3D_COL_SPHERE3D;
+	Game_Trans::COLFUNC[(int)COLTYPE::RAY3D][(int)COLTYPE::OBB3D] = RAY3D_COL_OBB3D;
+
 
 }
 

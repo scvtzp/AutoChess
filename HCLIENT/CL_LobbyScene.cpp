@@ -127,7 +127,7 @@ void CL_LobbyScene::Update()
 {
 	Mouse_Col->TRANS()->LPOS({ HGAMEINPUT::MousePos3D().x / 100.f, HGAMEINPUT::MousePos3D().y / 100.f, HGAMEINPUT::MousePos3D().z / 100.f });
 	Mouse_ColRenderer->TRANS()->LPOS({ HGAMEINPUT::MousePos3D().x / 100, HGAMEINPUT::MousePos3D().y / 100, HGAMEINPUT::MousePos3D().z / 100 });
-	Game_3D_Debug::DrawDebugText(L"ķ Lpos %f %f %f", CamActor->TRANS()->LPOS().x, CamActor->TRANS()->LPOS().y, CamActor->TRANS()->LPOS().z);
+	//Game_3D_Debug::DrawDebugText(L"ķ Lpos %f %f %f", CamActor->TRANS()->LPOS().x, CamActor->TRANS()->LPOS().y, CamActor->TRANS()->LPOS().z);
 
 	if (HGAMEINPUT::Down(L"1"))
 	{

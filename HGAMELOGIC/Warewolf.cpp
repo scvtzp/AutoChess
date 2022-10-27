@@ -104,7 +104,6 @@ void WareWolf::Init()
 		NewRender->ShadowOn();
 	}
 	Make_HpBar();
-
 }
 
 //void WareWolf::Update()
@@ -160,7 +159,7 @@ void WareWolf::Skile()
 {
 	if (Form_change)
 	{
-
+		Info.State = Chess_State::Idle;
 	}
 	else if (Info.Mana >= Info.MaxMana)
 	{

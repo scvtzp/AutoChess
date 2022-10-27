@@ -676,7 +676,7 @@ void Chess_Base::Set_Rot(int _x, int _y)
 
 void Chess_Base::Update()
 {
-	if (HP_Bar == nullptr) //init을 안들어갔다 즉, 로딩씬일때
+	if (HPBar_Act == nullptr) //init을 안들어갔다 즉, 로딩씬일때
 		return;
 
 	MeshActor->TRANS()->LPOS({ Info.Real_X, 0.f , Info.Real_Y });
@@ -689,21 +689,24 @@ void Chess_Base::Update()
 	Set_Ani();
 
 	float Hp_Scale = Info.Hp / Info.MaxHp * 0.8f;
-	HP_Bar->TRANS()->LSCALE({ Hp_Scale , 0.15f, 1.f });
+	if(HP_Bar!= nullptr)
+		HP_Bar->TRANS()->LSCALE({ Hp_Scale , 0.15f, 1.f });
 
 	IsBanch();
 
 	//이동 (밴치에 있으면 패스)
 	if (!Info.Banch)
 	{
-		HPBar_Act->On();
+		if (HP_Bar != nullptr)
+			HPBar_Act->On();
 		Move(); //놀랍게도 move가 이동 이외에 상태판별포함이라 playskill도 바꿔줌.
-		HP_Bar->TRANS()->LPOS({ Info.Real_X - (0.8f - Hp_Scale) / 2, 1.f, Info.Real_Y });
-		HP_BlackBar->TRANS()->LPOS({ Info.Real_X, 1.f, Info.Real_Y });
+		if (HP_Bar != nullptr){			
+			HP_Bar->TRANS()->LPOS({ Info.Real_X - (0.8f - Hp_Scale) / 2, 1.f, Info.Real_Y });
+			HP_BlackBar->TRANS()->LPOS({ Info.Real_X, 1.f, Info.Real_Y });		}
 	}
 	else
 	{
-		HPBar_Act->Off();
+		if (HP_Bar != nullptr)		HPBar_Act->Off();
 	}
 
 	if (Info.Play_Skill)
@@ -714,15 +717,23 @@ void Chess_Base::IsBanch()
 {
 	if (Info.Position_Y != -2)
 	{
+		if (HP_Bar != nullptr)
+		{
 		HP_Bar->On();
 		HP_BlackBar->On();
+
+		}
 
 		Info.Banch = false;
 	}
 	else
 	{
+		if (HP_Bar != nullptr)
+		{
 		HP_Bar->Off();
 		HP_BlackBar->Off();
+
+		}
 
 		Info.Banch = true;
 	}
@@ -816,11 +827,14 @@ void Chess_Base::Set_Ani()
 
 void Chess_Base::Make_HpBar()
 {
+	HPBar_Act = SCENE()->CreateActor();
+	//임시로 날림.
+	return;
+
 	float4 CUTDATA = { 0,0,1,1 };
 	float4 DRAWCOLOR = { 1,1,1,0.5f }; //50%반투명
 	Game_Vector Scale = { 0.7f, 0.12f, 1.f };
 
-	HPBar_Act = SCENE()->CreateActor();
 
 	//빨강/초록 체력바 생성
 	{

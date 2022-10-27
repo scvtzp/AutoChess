@@ -70,6 +70,10 @@ private:
 	Game_Ptr<HRENDERPLAYER> DefferdMergePlayer;
 
 public:
+	HMATRIX Get_ViewMatrix() { return m_VIEW; }
+	HMATRIX Get_ProjectionMatrix() { return m_PROJ; }
+
+public:
 	Game_Vector CAMSIZE() { return m_CAMSIZE; }
 	void CAMSIZE(const Game_Vector _Value) { m_CAMSIZE = _Value; }
 

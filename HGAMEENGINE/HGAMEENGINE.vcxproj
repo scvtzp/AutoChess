@@ -259,6 +259,7 @@
     <ClInclude Include="Game_SpriteRenderer.h" />
     <ClInclude Include="HTEXTURE.h" />
     <ClInclude Include="Game_Trans.h" />
+    <ClInclude Include="HTRANS_COL.h" />
     <ClInclude Include="HVBBUFFER.h" />
     <ClInclude Include="Game_Virtualprgoress.h" />
     <ClInclude Include="HVTXSHADER.h" />

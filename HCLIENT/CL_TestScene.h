@@ -29,6 +29,9 @@ public:
 	Game_Ptr<Game_Actor> CamActor;
 	Game_Ptr<Game_Actor> CamActor_Ui;
 
+	Game_Ptr<Game_Actor> MouseActor;
+	Game_Ptr<Game_Actor> RayActor;
+	Game_Ptr<HCAM> TestScene_MainCam;
 public:
 	Game_Ptr<Game_Actor> TestActor;
 	Game_Ptr<Game_Actor> LightTest;

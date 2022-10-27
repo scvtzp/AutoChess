@@ -4,6 +4,11 @@
 #include <Chess_player.h>
 /////////////////////////////////////// STATIC
 
+#include "HGAMESCENE.h"
+#include "HCAM.h"
+
+
+
 
 CL_TestScene* CL_TestScene::Inst;
 HBoneAnimationCom* CL_TestScene::AniCom = nullptr;
@@ -20,6 +25,7 @@ CL_TestScene::~CL_TestScene()
 void CL_TestScene::SceneChangeStart()
 {
 	SCENE()->ColLink((int)Col_Name::Unit, (int)Col_Name::Unit);
+	SCENE()->ColLink((int)Col_Name::Mouse, (int)Col_Name::Unit);
 
 	Load_Functions();
 
@@ -28,11 +34,11 @@ void CL_TestScene::SceneChangeStart()
 		Game_Ptr<Game_Actor> NewActor = SCENE()->CreateActor();
 		CamActor = NewActor;
 		NewActor->TRANS()->LPOS({ 0, 0, -10 });
-		Game_Ptr<HCAM> NewCam = NewActor->CreateCom<HCAM>(0, (int)RenderType::Default);
-		NewCam->MODE(CAMMODE::PERS);
-		NewCam->CAMSIZE({ 12.8f, 7.2f });
-		m_LineFilter = NewCam->AddFilter<HOutLineFilter>(10);
-		m_BloomFilter = NewCam->AddFilter<HBloomFilter>(10);
+		TestScene_MainCam = NewActor->CreateCom<HCAM>(0, (int)RenderType::Default);
+		TestScene_MainCam->MODE(CAMMODE::PERS);
+		TestScene_MainCam->CAMSIZE({ 12.8f, 7.2f });
+		m_LineFilter = TestScene_MainCam->AddFilter<HOutLineFilter>(10);
+		m_BloomFilter = TestScene_MainCam->AddFilter<HBloomFilter>(10);
 		NewActor->CreateCom<FreeCam>(10.0f);
 
 		//CamActor->TRANS()->LPOS({ 3.5f, 9.f, 0.5f });
@@ -76,21 +82,6 @@ void CL_TestScene::SceneChangeStart()
 		Game_Ptr<Game_Collision> Col = PlayerActor->CreateCom<Game_Collision>((int)Col_Name::Unit);
 		Col->ColType(COLTYPE::SPHERE3D);
 		Col->PushStayFunc(this, &CL_TestScene::ColTest);
-	}
-
-	//공+범프
-	{
-		Game_Ptr<Game_Actor> NewActor = SCENE()->CreateActor();
-		NewActor->TRANS()->LPOS({ 2.0F, 2.0F, 2.0F });
-		
-		Game_Ptr<Game_Renderer> NewRender = NewActor->CreateCom<Game_Renderer>(L"SPHERE", L"Foward");
-		NewRender->GetRenderPlayer(0)->RenderOption.IsDifTexture = false;
-		NewRender->GetRenderPlayer(0)->RenderOption.IsNormalTexture = true;
-		NewRender->TEXTURE(L"NormalTexture", L"BumpTest.png");
-
-		Game_Ptr<Game_Collision> Col = NewActor->CreateCom<Game_Collision>((int)Col_Name::Unit);
-		Col->ColType(COLTYPE::SPHERE3D);
-
 	}
 
 	//맵
@@ -157,6 +148,26 @@ void CL_TestScene::SceneChangeStart()
 		//PTR->CreateCom<Chess_player>();
 	}
 
+	//마우스
+	{
+		MouseActor = SCENE()->CreateActor();
+		MouseActor->TRANS()->LSCALE({ 0.4f, 0.4f , 1.f });
+		Game_Ptr<Game_Collision> Mouse_Col = MouseActor->CreateCom<Game_Collision>((int)Col_Name::Mouse);
+		Mouse_Col->ColType(COLTYPE::RAY3D);
+		Mouse_Col->PushStayFunc(this, &CL_TestScene::ColTest);
+
+		//Mouse_Col->TRANS()->LSCALE(Mouse_Scale);
+
+		Game_Ptr<Game_Renderer> Mouse_ColRenderer = MouseActor->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Ui);
+		float4 CUTDATA = { 0,0,1,1 };
+		Mouse_ColRenderer->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
+		float4 DRAWCOLOR = { 1,1,1,1 };
+		Mouse_ColRenderer->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
+		Mouse_ColRenderer->TEXTURE(L"Tex", L"ColTest.png");
+		Mouse_ColRenderer->SAMPLER(L"Smp", "LWSMP");
+		//Mouse_ColRenderer->TRANS()->LSCALE(Mouse_Scale);
+	}
+
 	//빛
 	{
 		LightTest = SCENE()->CreateActor();
@@ -168,6 +179,20 @@ void CL_TestScene::SceneChangeStart()
 		Game_Ptr<Game_Renderer> NewRender = LightTest->CreateCom<Game_Renderer>(L"DIRMESH", L"DebugMesh");
 		LightTest->TRANS()->WPOS(Dir);
 		LightTest->TRANS()->WROTADDX(45.0f);
+	}
+
+	//위에 판때기
+	{
+		Game_Ptr<Game_Actor> Act = SCENE()->CreateActor();
+		Game_Ptr<Game_Renderer> PauseButton_ColRenderer = Act->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Ui);
+		float4 CUTDATA = { 0,0,1,1 };
+		PauseButton_ColRenderer->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
+		float4 DRAWCOLOR = { 1,1,1,1 };
+		PauseButton_ColRenderer->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
+		PauseButton_ColRenderer->TEXTURE(L"Tex", L"BattleTopFrame.png");
+		PauseButton_ColRenderer->SAMPLER(L"Smp", "LWSMP");
+		PauseButton_ColRenderer->TRANS()->LSCALE({ 8.f, 0.7f , 1.f });
+		PauseButton_ColRenderer->TRANS()->LPOS({ 0.0f, 3.6f-0.35f ,0.f });
 	}
 }
 void CL_TestScene::SceneChangeEnd()
@@ -187,42 +212,45 @@ void CL_TestScene::Init()
 
 void CL_TestScene::Update()
 {
+	MouseActor->TRANS()->LPOS({ HGAMEINPUT::MousePos3D().x / 100.f, HGAMEINPUT::MousePos3D().y / 100.f, HGAMEINPUT::MousePos3D().z / 100.f });
+	//Game_3D_Debug::DrawDebugText(L"마우스 Lrot % f % f % f", HGAMEINPUT::MousePos3D().x, HGAMEINPUT::MousePos3D().y, HGAMEINPUT::MousePos3D().z);
 	PlayerUpdate();
+	{
+		//H3DDEBUG::DrawDebugText(L"AAAA");
+//float Ratio = 2.0f;
+//Game_Vector Scale = { 128 * Ratio, 72 * Ratio };
+//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(0), Scale, Game_Vector{ (640.0f - Scale.x), 360, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(1), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(2), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y * 2, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(3), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y * 3, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(7), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y * 4, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(LightCom->ShadowTarget()->Texture(0), Game_Vector{ Scale.x, Scale.x }, Game_Vector{ (640.0f - Scale.x * 2.0f), (360 - Scale.y * 4) + Scale.x - Scale.y, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(6), Scale, Game_Vector{ (640.0f - Scale.x * 2.0F), 360 - Scale.y * 3, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(m_BloomFilter->OutTarget->Texture(0), Scale, Game_Vector{ (640.0f - Scale.x * 2.0f), 360, 0.0f }, Game_Vector::BLACK);
+//H3DDEBUG::DrawDebugTexture(CamPtr->DefferdLightTarget()->Texture(3), Scale, Game_Vector{ (640.0f - Scale.x * 2.0f), 360 - Scale.y * 1, 0.0f }, Game_Vector::BLACK);
 
-	// H3DDEBUG::DrawDebugText(L"AAAA");
-	//float Ratio = 2.0f;
-	//Game_Vector Scale = { 128 * Ratio, 72 * Ratio };
-	//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(0), Scale, Game_Vector{ (640.0f - Scale.x), 360, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(1), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(2), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y * 2, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(3), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y * 3, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(7), Scale, Game_Vector{ (640.0f - Scale.x), 360 - Scale.y * 4, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(LightCom->ShadowTarget()->Texture(0), Game_Vector{ Scale.x, Scale.x }, Game_Vector{ (640.0f - Scale.x * 2.0f), (360 - Scale.y * 4) + Scale.x - Scale.y, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(CamPtr->GbufferTarget()->Texture(6), Scale, Game_Vector{ (640.0f - Scale.x * 2.0F), 360 - Scale.y * 3, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(m_BloomFilter->OutTarget->Texture(0), Scale, Game_Vector{ (640.0f - Scale.x * 2.0f), 360, 0.0f }, Game_Vector::BLACK);
-	//H3DDEBUG::DrawDebugTexture(CamPtr->DefferdLightTarget()->Texture(3), Scale, Game_Vector{ (640.0f - Scale.x * 2.0f), 360 - Scale.y * 1, 0.0f }, Game_Vector::BLACK);
+//Game_RightView::View->PushFbxList();
 
-	//Game_RightView::View->PushFbxList();
+//if (nullptr == AniCom)
+//{
+//	return;
+//}
 
-	//if (nullptr == AniCom)
-	//{
-	//	return;
-	//}
+//if (AniCom->CurAni()->IsEnd())
+//{
+//	CString Text;
 
-	//if (AniCom->CurAni()->IsEnd())
-	//{
-	//	CString Text;
+//	Game_RightView::View->m_PlayBtn.GetWindowTextW(Text);
 
-	//	Game_RightView::View->m_PlayBtn.GetWindowTextW(Text);
+//	if (Text != L"다시 재생")
+//	{
+//		Game_RightView::View->m_PlayBtn.SetWindowTextW(L"다시 재생");
+//	}
+//	return;
+//}
 
-	//	if (Text != L"다시 재생")
-	//	{
-	//		Game_RightView::View->m_PlayBtn.SetWindowTextW(L"다시 재생");
-	//	}
-	//	return;
-	//}
-
-	//Game_RightView::View->CurFrame(AniCom->CurAni()->m_CurFrame);
+//Game_RightView::View->CurFrame(AniCom->CurAni()->m_CurFrame);
+	}
 }
 
 void CL_TestScene::LoadAni(Game_String _Name)
@@ -502,6 +530,7 @@ void CL_TestScene::PlayerUpdate()
 
 	Game_3D_Debug::DrawDebugText(L"캠 Lpos %f %f %f", CamActor->TRANS()->LPOS().x, CamActor->TRANS()->LPOS().y, CamActor->TRANS()->LPOS().z);
 	Game_3D_Debug::DrawDebugText(L"캠 Lrot %f %f %f", CamActor->TRANS()->LROT().x, CamActor->TRANS()->LROT().y, CamActor->TRANS()->LROT().z);
+
 	//Game_3D_Debug::DrawDebugText(L"마우스L %f %f %f", HGAMEINPUT::MousePos3D().x, HGAMEINPUT::MousePos3D().y, HGAMEINPUT::MousePos3D().z);
 
 	//Game_Vector Pos = PlayerActor->TRANS()->WPOS();

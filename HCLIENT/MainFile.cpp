@@ -23,7 +23,7 @@ int __stdcall Start()
 	srand((unsigned int)time(NULL));
 
 	//콘솔 오픈
-	HGAMEDEBUG::OpenConsole();
+	//HGAMEDEBUG::OpenConsole();
 
 	//key 로드
 	HGAMEINPUT::Init();
@@ -48,7 +48,7 @@ int __stdcall Start()
 	HGAMESCENE::Create<CL_LobbyScene>(L"LobbyScene"); //로비 화면
 	HGAMESCENE::Create<CL_StageScene>(L"StageScene"); //메인 전투 씬
 	HGAMESCENE::Create<CL_TestScene>(L"TestScene"); //충돌처리 등 각종 실험용 씬
-	HGAMESCENE::ChangeScene(L"TestScene");
+	HGAMESCENE::ChangeScene(L"LoadScene");
 
 	return 1; 
 }

@@ -93,7 +93,7 @@ void CL_LoadScene::Update()
 	//스레드 로드가 끝나면 씬 전환. 
 	//조건은 뮤텍스 사용한 안전한 증감. -> 응 한개라 의미없어짐
 	if(LoadCount >= LoadSceneNum)
-		HGAMESCENE::ChangeScene(L"TestScene");
+		HGAMESCENE::ChangeScene(L"StageScene");
 }
 
 //어떤거 로드할건지.
@@ -280,26 +280,26 @@ void CL_LoadScene::Load_Functions()
 			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Run.fbx"));
 			Game_Fbx_Ex::Load(Dic.PlusFileName(L"SWareWolfS1_Victory.fbx"));
 		}
-		{
-			HGAMEDIRECTORY Dic;
+		//{
+		//	HGAMEDIRECTORY Dic;
 
-			Dic.MoveParent(L"AutoChess");
-			Dic.Move(L"RES");
-			Dic.Move(L"MESH");
-			Dic.Move(L"Unit");
-			Dic.Move(L"WareWolf");
-			Dic.Move(L"C");
+		//	Dic.MoveParent(L"AutoChess");
+		//	Dic.Move(L"RES");
+		//	Dic.Move(L"MESH");
+		//	Dic.Move(L"Unit");
+		//	Dic.Move(L"WareWolf");
+		//	Dic.Move(L"C");
 
-			auto FileList = Dic.DirAllFile();
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack01.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack02.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Born.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Death.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Dizzy.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Idle.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Run.fbx"));
-			Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Victory.fbx"));
-		}
+		//	auto FileList = Dic.DirAllFile();
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack01.fbx"));
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Attack02.fbx"));
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Born.fbx"));
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Death.fbx"));
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Dizzy.fbx"));
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Idle.fbx"));
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Run.fbx"));
+		//	Game_Fbx_Ex::Load(Dic.PlusFileName(L"CWareWolfS1_Victory.fbx"));
+		//}
 	}
 
 	//(암살고블린) 소울브레이커
@@ -354,39 +354,39 @@ void CL_LoadScene::Load_Functions()
 		Game_Sprite::Create(L"Unicorn_Circle.png", 4, 4);
 	}
 
-	//캡틴
-	{
-		HGAMEDIRECTORY Dic;
+	////캡틴
+	//{
+	//	HGAMEDIRECTORY Dic;
 
-		Dic.MoveParent(L"AutoChess");
-		Dic.Move(L"RES");
-		Dic.Move(L"MESH");
-		Dic.Move(L"Unit");
-		Dic.Move(L"Captain");
+	//	Dic.MoveParent(L"AutoChess");
+	//	Dic.Move(L"RES");
+	//	Dic.Move(L"MESH");
+	//	Dic.Move(L"Unit");
+	//	Dic.Move(L"Captain");
 
-		auto FileList = Dic.DirAllFile();
-		for (auto& i : FileList)
-		{
-			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
-		}
-	}
+	//	auto FileList = Dic.DirAllFile();
+	//	for (auto& i : FileList)
+	//	{
+	//		Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+	//	}
+	//}
 
-	//메두사
-	{
-		HGAMEDIRECTORY Dic;
+	////메두사
+	//{
+	//	HGAMEDIRECTORY Dic;
 
-		Dic.MoveParent(L"AutoChess");
-		Dic.Move(L"RES");
-		Dic.Move(L"MESH");
-		Dic.Move(L"Unit");
-		Dic.Move(L"Medusa");
+	//	Dic.MoveParent(L"AutoChess");
+	//	Dic.Move(L"RES");
+	//	Dic.Move(L"MESH");
+	//	Dic.Move(L"Unit");
+	//	Dic.Move(L"Medusa");
 
-		auto FileList = Dic.DirAllFile();
-		for (auto& i : FileList)
-		{
-			Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
-		}
-	}
+	//	auto FileList = Dic.DirAllFile();
+	//	for (auto& i : FileList)
+	//	{
+	//		Game_Fbx_Ex::Load(Dic.PlusFileName(i.FileName()));
+	//	}
+	//}
 
 	//Static FBX로드
 	{

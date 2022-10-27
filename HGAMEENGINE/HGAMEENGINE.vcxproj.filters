@@ -264,6 +264,7 @@
     <ClInclude Include="Game_StaticFBX.h">
       <Filter>RES\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="HTRANS_COL.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="RENDERING">

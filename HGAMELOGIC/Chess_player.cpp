@@ -18,7 +18,7 @@ list<Game_Ptr<Chess_Base>> Chess_player::Piece_Board;
 list<Game_Ptr<Chess_Base>> Chess_player::Piece_Enemy_ChessBoard;
 bool Chess_player::Round = true;
 bool Chess_player::PickCheck = false;
-bool Chess_player::CanDeath = false;
+bool Chess_player::CanDeath = true;
 Game_Vector Chess_player::PickPos;
 
 Chess_player::Chess_player() {}
@@ -58,12 +58,13 @@ void Chess_player::Init()
 		PauseButton_ColRenderer->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
 		float4 DRAWCOLOR = { 1,1,1,1 };
 		PauseButton_ColRenderer->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
-		PauseButton_ColRenderer->TEXTURE(L"Tex", L"Red.png");
+		PauseButton_ColRenderer->TEXTURE(L"Tex", L"Start.png");
 		PauseButton_ColRenderer->SAMPLER(L"Smp", "LWSMP");
 		PauseButton_ColRenderer->TRANS()->LSCALE({ 1.f, 1.f , 1.f });
 
 		PauseButton_ColRenderer->TRANS()->LPOS({5.0f, -0.5f ,0.f});
 	}
+
 
 	//테스트
 	for (int i = 0; i < 8; i++)
@@ -124,11 +125,21 @@ void Chess_player::Init()
 
 void Chess_player::Update()
 {
+	//PauseButton_ColRenderer->Off();
+	if (true)
+	{
+		Mouse_ColRenderer->Off();
+		for (auto &i : Store_ColRenderer)
+			i->Off();
+	}
+	else
+	{
+		Game_3D_Debug::DrawDebugText(L"Mouse_Col W위치 %f %f %f", Mouse_Col->TRANS()->WPOS().x, Mouse_Col->TRANS()->WPOS().y, Mouse_Col->TRANS()->WPOS().z);
+		Game_3D_Debug::DrawDebugText(L"Mouse_ColRenderer W위치 %f %f %f", Mouse_ColRenderer->TRANS()->WPOS().x, Mouse_ColRenderer->TRANS()->WPOS().y, Mouse_ColRenderer->TRANS()->WPOS().z);
+	}
 	//마우스 좌표 업데이트
 	Mouse_Col->TRANS()->LPOS({ HGAMEINPUT::MousePos3D().x / 100.f, HGAMEINPUT::MousePos3D().y / 100.f, HGAMEINPUT::MousePos3D().z / 100.f });
 	Mouse_ColRenderer->TRANS()->LPOS({ HGAMEINPUT::MousePos3D().x / 100, HGAMEINPUT::MousePos3D().y / 100, HGAMEINPUT::MousePos3D().z / 100 });
-	Game_3D_Debug::DrawDebugText(L"Mouse_Col W위치 %f %f %f", Mouse_Col->TRANS()->WPOS().x, Mouse_Col->TRANS()->WPOS().y, Mouse_Col->TRANS()->WPOS().z);
-	Game_3D_Debug::DrawDebugText(L"Mouse_ColRenderer W위치 %f %f %f", Mouse_ColRenderer->TRANS()->WPOS().x, Mouse_ColRenderer->TRANS()->WPOS().y, Mouse_ColRenderer->TRANS()->WPOS().z);
 
 
 	//////적 유닛들 사망 시 삭제시킴.
@@ -201,7 +212,7 @@ void Chess_player::ReRoll()
 		for (int i = 0; i < 5; ++i)
 		{
 			Chess_Store[i] = ChessPiece_Supply.Lv1_Supply.back();
-			ChessPiece_Supply.Lv1_Supply.pop_back();
+			//ChessPiece_Supply.Lv1_Supply.pop_back();
 			random_shuffle(ChessPiece_Supply.Lv1_Supply.begin(), ChessPiece_Supply.Lv1_Supply.end());
 		}
 		break;
@@ -587,30 +598,39 @@ void Chess_player::Test()
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<WareWolf> TestEnemy = PTR1->CreateCom<WareWolf>();
-		TestEnemy->Info.Position_X = 1;
+		TestEnemy->Info.Position_X = 0;
 		TestEnemy->Info.Position_Y = 1;
-		TestEnemy->Info.Real_X = 1;
+		TestEnemy->Info.Real_X = 0;
 		TestEnemy->Info.Real_Y = 1;
 		Piece_Board.emplace_back(TestEnemy);
 	}
-	{
-		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
-		Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
-		TestEnemy->Info.Position_X = 1;
-		TestEnemy->Info.Position_Y = 3;
-		TestEnemy->Info.Real_X = 1;
-		TestEnemy->Info.Real_Y = 3;
-		Piece_Board.emplace_back(TestEnemy);
-	}
+	//{
+	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+	//	Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
+	//	TestEnemy->Info.Position_X = 1;
+	//	TestEnemy->Info.Position_Y = 2;
+	//	TestEnemy->Info.Real_X = 1;
+	//	TestEnemy->Info.Real_Y = 3;
+	//	Piece_Board.emplace_back(TestEnemy);
+	//}
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<SoulBreaker> TestEnemy = PTR1->CreateCom<SoulBreaker>();
-		TestEnemy->Info.Position_X = 2;
+		TestEnemy->Info.Position_X = 7;
 		TestEnemy->Info.Position_Y = 0;
-		TestEnemy->Info.Real_X = 2;
+		TestEnemy->Info.Real_X = 7;
 		TestEnemy->Info.Real_Y = 0;
 		Piece_Board.emplace_back(TestEnemy);
 	}
+	//{
+	//	Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
+	//	Game_Ptr<Unicorn> TestEnemy = PTR1->CreateCom<Unicorn>();
+	//	TestEnemy->Info.Position_X = 1;
+	//	TestEnemy->Info.Position_Y = 4;
+	//	TestEnemy->Info.Real_X = TestEnemy->Info.Position_X;
+	//	TestEnemy->Info.Real_Y = TestEnemy->Info.Position_Y;
+	//	Piece_Board.emplace_back(TestEnemy);
+	//}
 
 	//테스트용 적 유닛 생성///////////////////////////////////////////////
 	//{
@@ -626,10 +646,10 @@ void Chess_player::Test()
 	{
 		Game_Ptr<Game_Actor> PTR1 = SCENE()->CreateActor();
 		Game_Ptr<SwordMaster> TestEnemy = PTR1->CreateCom<SwordMaster>();
-		TestEnemy->Info.Position_X = 6;
-		TestEnemy->Info.Position_Y = 7;
-		TestEnemy->Info.Real_X = 6;
-		TestEnemy->Info.Real_Y = 7;
+		TestEnemy->Info.Position_X = 3;
+		TestEnemy->Info.Position_Y = 4;
+		TestEnemy->Info.Real_X = 3;
+		TestEnemy->Info.Real_Y = 4;
 		TestEnemy->Info.MyUnit = false;
 		Piece_Enemy_ChessBoard.emplace_back(TestEnemy);
 	}

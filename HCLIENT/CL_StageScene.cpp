@@ -164,6 +164,20 @@ void CL_StageScene::SceneChangeStart()
 		LightTest->TRANS()->WPOS(Dir);
 		LightTest->TRANS()->WROTADDX(45.0f);
 	}
+
+	//À§¿¡ ÆÇ¶§±â
+	{
+		Game_Ptr<Game_Actor> Act = SCENE()->CreateActor();
+		Game_Ptr<Game_Renderer> PauseButton_ColRenderer = Act->CreateCom<Game_Renderer>(L"2DCOLORRECT", L"2DIMAGE", (int)RenderType::Ui);
+		float4 CUTDATA = { 0,0,1,1 };
+		PauseButton_ColRenderer->CBUFFER(L"CUTDATA", &CUTDATA, CBUFFERMODE::CB_NEW);
+		float4 DRAWCOLOR = { 1,1,1,1 };
+		PauseButton_ColRenderer->CBUFFER(L"DRAWCOLOR", &DRAWCOLOR, CBUFFERMODE::CB_NEW);
+		PauseButton_ColRenderer->TEXTURE(L"Tex", L"BattleTopFrame.png");
+		PauseButton_ColRenderer->SAMPLER(L"Smp", "LWSMP");
+		PauseButton_ColRenderer->TRANS()->LSCALE({ 8.f, 0.7f , 1.f });
+		PauseButton_ColRenderer->TRANS()->LPOS({ 0.0f, 3.6f - 0.35f ,0.f });
+	}
 }
 void CL_StageScene::SceneChangeEnd()
 {
@@ -496,8 +510,8 @@ void CL_StageScene::PlayerUpdate()
 	//	PlayerActor->TRANS()->WMOVE(PlayerActor->TRANS()->WBACK() * Game_Time::DeltaTime(20.0F));
 	//}
 
-	Game_3D_Debug::DrawDebugText(L"Ä· Lpos %f %f %f", CamActor->TRANS()->LPOS().x, CamActor->TRANS()->LPOS().y, CamActor->TRANS()->LPOS().z);
-	Game_3D_Debug::DrawDebugText(L"Ä· Lrot %f %f %f", CamActor->TRANS()->LROT().x, CamActor->TRANS()->LROT().y, CamActor->TRANS()->LROT().z);
+	//Game_3D_Debug::DrawDebugText(L"Ä· Lpos %f %f %f", CamActor->TRANS()->LPOS().x, CamActor->TRANS()->LPOS().y, CamActor->TRANS()->LPOS().z);
+	//Game_3D_Debug::DrawDebugText(L"Ä· Lrot %f %f %f", CamActor->TRANS()->LROT().x, CamActor->TRANS()->LROT().y, CamActor->TRANS()->LROT().z);
 	//Game_3D_Debug::DrawDebugText(L"¸¶¿ì½ºL %f %f %f", HGAMEINPUT::MousePos3D().x, HGAMEINPUT::MousePos3D().y, HGAMEINPUT::MousePos3D().z);
 
 	//Game_Vector Pos = PlayerActor->TRANS()->WPOS();
